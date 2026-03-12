@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cyber-roadmap-v1';
+const CACHE_NAME = 'cyber-checkmark-v2';
 const ASSETS = [
   '/',
   '/index.html',
