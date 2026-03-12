@@ -2,7 +2,7 @@
 
 A gamified cybersecurity career tracker built as a Progressive Web App. Track every cert, tool, and skill on the path from zero to DoD Security Engineer.
 
-**[Live App →] https://thestaticcore.github.io/The-Cyber-Checkmark/
+LIVE APP → https://thestaticcore.github.io/The-Cyber-Checkmark/
 
 ---
 
