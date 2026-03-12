@@ -1,8 +1,8 @@
-# 🔒 Cyber Career Roadmap
+# ✅ Cyber Checkmark
 
 A gamified cybersecurity career tracker built as a Progressive Web App. Track every cert, tool, and skill on the path from zero to DoD Security Engineer.
 
-LIVE APP 🔥 → https://thestaticcore.github.io/The-Cyber-Checkmark/
+**[Live App →](https://staticcore.io)**
 
 ---
 

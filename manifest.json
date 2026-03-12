@@ -1,7 +1,7 @@
 {
-  "name": "Cyber Career Roadmap",
-  "short_name": "CyberRoadmap",
-  "description": "Interactive cybersecurity career roadmap tracker — 41 skills across 4 phases",
+  "name": "Cyber Checkmark",
+  "short_name": "CyberCheckmark",
+  "description": "Gamified cybersecurity career roadmap — 50 certs, tools, and skills across 4 phases",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#080c14",
