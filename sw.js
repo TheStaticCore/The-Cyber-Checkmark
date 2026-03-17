@@ -1,7 +1,7 @@
 // Cyber Checkmark — Service Worker
 // staticcore.io | Connor Gibson | MIT License
 
-const CACHE_NAME = 'cyber-checkmark-v12';
+const CACHE_NAME = 'cyber-checkmark-v13';
 const ASSETS = [
   '/',
   '/index.html',
