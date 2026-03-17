@@ -2,103 +2,133 @@
   Cyber Checkmark
   Built by Connor Gibson
   Site: https://staticcore.io
-  GitHub: https://github.com/thestaticcore
+  GitHub: https://github.com/TheStaticCore/The-Cyber-Checkmark
   LinkedIn: https://linkedin.com/in/connorwgibson
-  © 2025 Connor Gibson. MIT License.
+
+  © 2026 Connor Gibson — staticcore.io
+  Free to use for personal, educational, and non-commercial purposes.
+  Commercial use, resale, or redistribution for profit requires written permission.
   Credit must be kept intact in all copies or derivatives.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cyber Checkmark</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#00d4ff">
+  <meta name="theme-color" content="#f5c842">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="CyberRoadmap">
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="mobile-web-app-capable" content="yes">
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
-    /* ── DARK THEME (default) ── */
     body {
-      background: #03060f;
-      color: #c8d8f0;
-      font-family: 'Rajdhani', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+      background: #111111;
+      color: #e0e0e0;
+      font-family: 'IBM Plex Sans', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
       transition: background 0.4s, color 0.4s;
     }
-
-    /* ── LIGHT THEME ── */
-    body.light {
-      background: #ffffff;
-      color: #1a2340;
-    }
-    body.light ::-webkit-scrollbar-track { background: #ffffff; }
-    body.light ::-webkit-scrollbar-thumb { background: #00d4ff50; }
-
+    body.light { background: #f5f5f0; color: #111111; }
     ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #03060f; }
-    ::-webkit-scrollbar-thumb { background: #00d4ff30; border-radius: 2px; }
 
+    /* iPhone safe area — avoid notch and home bar */
+    #root > div {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    ::-webkit-scrollbar-track { background: #111111; }
+    ::-webkit-scrollbar-thumb { background: #f5c84240; border-radius: 2px; }
+    body.light ::-webkit-scrollbar-track { background: #f5f5f0; }
+    body.light ::-webkit-scrollbar-thumb { background: #00000020; }
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-      transition: opacity 0.4s;
+      position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(245,200,66,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(245,200,66,0.015) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none; z-index: 0;
     }
-    body.light::before { opacity: 0.6; }
-
-    body::after {
-      content: '';
-      position: fixed;
-      top: -200px; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 500px;
-      background: radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulseDot { 0%,100% { opacity:.4; transform:scale(1); } 50% { opacity:1; transform:scale(1.3); } }
+    @keyframes xpPop { 0% { transform:translateY(0) scale(1); opacity:1; } 100% { transform:translateY(-50px) scale(1.4); opacity:0; } }
+    @keyframes levelUp { 0% { transform:scale(0.85); opacity:0; } 60% { transform:scale(1.08); opacity:1; } 100% { transform:scale(1); opacity:1; } }
+    @keyframes streakPulse { 0%,100% { box-shadow:0 0 0 0 rgba(245,200,66,0.3); } 50% { box-shadow:0 0 0 5px rgba(245,200,66,0); } }
+    @keyframes milestoneIn { 0% { transform:translateY(-16px) scale(0.92); opacity:0; } 60% { transform:translateY(3px) scale(1.01); } 100% { transform:translateY(0) scale(1); opacity:1; } }
+    @keyframes confettiFall { 0% { transform:translateY(-10px) rotate(0deg); opacity:1; } 100% { transform:translateY(80px) rotate(720deg); opacity:0; } }
+    @keyframes ringComplete { 0%,100% { filter:drop-shadow(0 0 3px #f5c842); } 50% { filter:drop-shadow(0 0 10px #f5c842); } }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 20px !important; letter-spacing: 0.02em !important; }
+      .phase-header { padding: 10px 12px !important; }
+      .phase-item { padding: 10px 12px !important; }
+      .stat-grid { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+      .modal-box { margin: 6px; padding: 14px; max-height: 92vh; }
+      .top-actions { flex-wrap: wrap; gap: 4px !important; }
+      .sticky-bar-title { display: none !important; }
+      .phase-grid { grid-template-columns: repeat(2,1fr) !important; }
+      .big-stat-row { gap: 6px !important; }
     }
-
-    @keyframes scanline {
-      0%   { top: -3px; }
-      100% { top: 100vh; }
+    @media (max-width: 640px) {
+      .phase-meta { display: none !important; }
+      .item-index { display: none !important; }
+      .phase-grid { grid-template-columns: repeat(3,1fr) !important; }
+      .big-stat-row { gap: 8px !important; }
+      .filter-scroll { overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
     }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      .stat-grid { gap: 8px !important; }
     }
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(-6px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .phase-item:hover { background: rgba(245,200,66,0.03) !important; }
+    body.light .phase-item:hover { background: rgba(0,0,0,0.04) !important; }
+    .phase-item:hover .item-hover-bar { opacity: 1 !important; }
+    .role-btn:hover { border-color: rgba(245,200,66,0.4) !important; color: #f5c842 !important; }
+    .action-btn:hover { filter: brightness(1.15); }
+    .phase-header:hover { filter: brightness(1.04); }
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      animation: fadeUp 0.2s ease;
     }
-    @keyframes pulseDot {
-      0%, 100% { opacity: 0.5; transform: scale(1); box-shadow: 0 0 4px #00d4ff; }
-      50%       { opacity: 1;   transform: scale(1.4); box-shadow: 0 0 12px #00d4ff; }
+    .modal-box {
+      background: #1a1a1a;
+      border: 2px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 24px;
+      width: 100%;
+      max-width: 460px;
+      max-height: 85vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      animation: milestoneIn 0.3s ease;
+      scrollbar-width: thin;
+      scrollbar-color: #f5c84220 transparent;
     }
-    @keyframes xpPop {
-      0%   { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-40px) scale(1.3); opacity: 0; }
-    }
-    @keyframes levelUp {
-      0%   { transform: scale(0.8); opacity: 0; }
-      60%  { transform: scale(1.15); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
+    .modal-box::-webkit-scrollbar { width: 3px; }
+    .modal-box::-webkit-scrollbar-thumb { background: #f5c84230; border-radius: 2px; }
+    body.light .modal-box { background: #fff; border-color: rgba(0,0,0,0.12); }
+    textarea { resize: vertical; font-family: 'IBM Plex Mono', monospace; }
+    textarea:focus { outline: none; border-color: #f5c842 !important; }
+    .confetti-piece {
+      position: fixed; width: 7px; height: 7px; border-radius: 2px;
+      pointer-events: none; z-index: 9997;
+      animation: confettiFall 1.2s ease forwards;
     }
   </style>
 </head>
@@ -107,738 +137,1189 @@
 
 <script type="text/babel">
   const { useState, useEffect, useRef, useCallback } = React;
-  const STORAGE_KEY = "cyber-roadmap-v3";
+  const STORAGE_KEY = "cyber-roadmap-v12";
 
-  // ── XP CONFIG ──
-  const XP_VALUES = { CERT: 150, SKILL: 100, TOOL: 80, FRAMEWORK: 120, TRAINING: 90 };
+  // ── DESIGN TOKENS ──────────────────────────────────────
+  const R = { sm:4, md:8, lg:12, xl:20, pill:999 };
+
+  const XP_VALUES = { CERT:150, SKILL:100, TOOL:80, FRAMEWORK:120, TRAINING:90 };
   const LEVELS = [
-    { level: 1,  title: "Iron",     xpRequired: 0,    color: "#9ca3af" },
-    { level: 2,  title: "Bronze",   xpRequired: 200,  color: "#cd7f32" },
-    { level: 3,  title: "Steel",    xpRequired: 500,  color: "#64748b" },
-    { level: 4,  title: "Silver",   xpRequired: 900,  color: "#94a3b8" },
-    { level: 5,  title: "Gold",     xpRequired: 1400, color: "#eab308" },
-    { level: 6,  title: "Platinum", xpRequired: 2000, color: "#cbd5e1" },
-    { level: 7,  title: "Titanium", xpRequired: 2700, color: "#60a5fa" },
-    { level: 8,  title: "Obsidian", xpRequired: 3500, color: "#7c3aed" },
-    { level: 9,  title: "Diamond",  xpRequired: 4200, color: "#22d3ee" },
-    { level: 10, title: "Phantom",  xpRequired: 5000, color: "#e879f9" },
+    { level:1,  title:"Iron",     xpRequired:0,    color:"#9ca3af" },
+    { level:2,  title:"Bronze",   xpRequired:200,  color:"#cd7f32" },
+    { level:3,  title:"Steel",    xpRequired:500,  color:"#64748b" },
+    { level:4,  title:"Silver",   xpRequired:900,  color:"#94a3b8" },
+    { level:5,  title:"Gold",     xpRequired:1400, color:"#eab308" },
+    { level:6,  title:"Platinum", xpRequired:2000, color:"#cbd5e1" },
+    { level:7,  title:"Titanium", xpRequired:2700, color:"#60a5fa" },
+    { level:8,  title:"Obsidian", xpRequired:3500, color:"#7c3aed" },
+    { level:9,  title:"Diamond",  xpRequired:4200, color:"#22d3ee" },
+    { level:10, title:"Phantom",  xpRequired:5000, color:"#f5c842" },
+  ];
+  const DIFFICULTY = {
+    1:{ label:"EASY",   color:"#34d399" },
+    2:{ label:"MEDIUM", color:"#fb923c" },
+    3:{ label:"HARD",   color:"#f87171" },
+  };
+
+  // Job role filters — generic
+  const JOB_ROLES = [
+    { id:"all",      label:"All Skills",          filter: () => true },
+    { id:"sysadmin", label:"Sysadmin / IT",        filter: i => ["Active Directory / SSO / LDAP","Cisco IOS / CLI","Cisco Packet Tracer","CompTIA A+","CompTIA Linux+","CompTIA N+","Git / GitHub","Group Policy (GPO)","Linux / Bash","Networking Fundamentals","PowerShell","RHCSA","SQL","VirtualBox / VMware","Windows Server 2022"].includes(i.title) },
+    { id:"soc",      label:"SOC Analyst",          filter: i => ["CompTIA CySA+","Detection Engineering","Elastic / ELK Stack","Email Security","Log Analysis","MITRE ATT&CK","SIEM Rule Engineering","Security Onion","Splunk","Threat Intelligence","TryHackMe SAL1","TryHackMe SEC0","TryHackMe SEC1","Windows Event Logs","Zeek / NSM"].includes(i.title) },
+    { id:"cloud",    label:"Cloud Security",       filter: i => ["Azure Monitor / Log Analytics","Azure Sentinel Playbooks","DevSecOps","KQL","Microsoft AZ-104","Microsoft AZ-500","Microsoft AZ-900","Microsoft Defender","Microsoft Entra","Microsoft Intune","Microsoft SC-200","Microsoft SC-900","Microsoft Sentinel"].includes(i.title) },
+    { id:"seceng",   label:"Security Engineer",    filter: i => ["Backup & Disaster Recovery","CISSP","CompTIA SecurityX","Firewall / pfSense","Incident Response (PICERL)","MITRE D3FEND","Network Segmentation","Purple Team","Security Architecture Review","Tenable Nessus","Vulnerability Management","Zero Trust"].includes(i.title) },
+    { id:"ot",       label:"Critical Infra",       filter: i => ["Backup & Disaster Recovery","CIS Benchmarks","Firewall / pfSense","IEC 62443","Incident Response (PICERL)","NERC CIP","NIST 800-53","Network Segmentation","SCADA Fundamentals","Tabletop Exercises","Vulnerability Management"].includes(i.title) },
+    { id:"dod",      label:"DoD / GRC",            filter: i => ["Autopsy","CIS Benchmarks","CISSP","CompTIA CySA+","CompTIA SecurityX","DISA STIG","DoD 8570 / 8140","GCIH","NIST 800-53","RMF 800-37","Volatility"].includes(i.title) },
+    { id:"ai",       label:"AI Security",          filter: i => ["AI Agent Hardening","AI Model Red Teaming","Air-Gap Architecture","Federated Learning Security","IMA / Integrity Measurement","LLM Security","Local LLM Operations","NIST AI RMF","Ollama","Prompt Injection Defense","Secure AI Deployment","Supply Chain Security","TPM & Secure Boot"].includes(i.title) },
+    { id:"ir",       label:"Incident Responder",   filter: i => ["Autopsy","GCIH","Incident Response (PICERL)","Log Analysis","MITRE ATT&CK","MITRE D3FEND","Tabletop Exercises","Tcpdump","Threat Intelligence","Volatility","Windows Event Logs","Wireshark"].includes(i.title) },
+    { id:"malware",  label:"Malware Analyst",      filter: i => ["Autopsy","HackTheBox / CTF","Kali Linux","Linux / Bash","MITRE ATT&CK","Python","Tcpdump","TryHackMe SEC1","Volatility","Wireshark","Zeek / NSM"].includes(i.title) },
+    { id:"grc",      label:"GRC Analyst",          filter: i => ["CISSP","DISA STIG","DoD 8570 / 8140","GRC Mastery","ISO 27001","NERC CIP","PCI-DSS","RMF 800-37","SOC 2","Security Architecture Review","Tabletop Exercises"].includes(i.title) },
+    { id:"devsecops",label:"DevSecOps Engineer",   filter: i => ["Ansible","Application Security","Azure Sentinel Playbooks","DevSecOps","Docker","Git / GitHub","Microsoft SC-200","OWASP Top 10","Supply Chain Security","Terraform"].includes(i.title) },
+    { id:"netsec",   label:"Network Security",     filter: i => ["Cisco IOS / CLI","Cisco Packet Tracer","CompTIA N+","Email Security","IEC 62443","Networking Fundamentals","Nmap","Tcpdump","Wireshark","Zero Trust"].includes(i.title) },
+    { id:"focus",    label:"⭐ Priority",            filter: () => false, isPriority: true },
   ];
 
-  // ── DIFFICULTY & HOURS ──
-  const DIFFICULTY = { 1: { label: "EASY",   color: "#22c55e", stars: 1 },
-                       2: { label: "MEDIUM", color: "#f59e0b", stars: 2 },
-                       3: { label: "HARD",   color: "#f87171", stars: 3 } };
+  const RESOURCES = {
+    "CompTIA A+":"https://www.comptia.org/certifications/a",
+    "CompTIA N+":"https://www.comptia.org/certifications/network",
+    "CompTIA S+":"https://www.comptia.org/certifications/security",
+    "CompTIA Linux+":"https://www.comptia.org/certifications/linux",
+    "CompTIA CySA+":"https://www.comptia.org/certifications/cybersecurity-analyst",
+    "CompTIA SecurityX":"https://www.comptia.org/certifications/securityx",
+    "CISSP":"https://www.isc2.org/Certifications/CISSP",
+    "TryHackMe SEC0":"https://tryhackme.com/path/outline/soc-level-1",
+    "TryHackMe SEC1":"https://tryhackme.com/path/outline/soc-level-1",
+    "TryHackMe SAL1":"https://tryhackme.com/path/outline/soc-level-1",
+    "Splunk":"https://www.splunk.com/en_us/training/free-courses/overview.html",
+    "Wireshark":"https://www.wireshark.org/docs/wsug_html_chunked/",
+    "Nmap":"https://nmap.org/book/toc.html",
+    "MITRE ATT&CK":"https://attack.mitre.org/",
+    "Microsoft AZ-900":"https://learn.microsoft.com/en-us/certifications/azure-fundamentals/",
+    "Microsoft AZ-104":"https://learn.microsoft.com/en-us/certifications/azure-administrator/",
+    "Microsoft AZ-500":"https://learn.microsoft.com/en-us/certifications/azure-security-engineer/",
+    "Microsoft SC-200":"https://learn.microsoft.com/en-us/certifications/security-operations-analyst/",
+    "NIST 800-53":"https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final",
+    "DISA STIG":"https://public.cyber.mil/stigs/",
+    "CIS Benchmarks":"https://www.cisecurity.org/cis-benchmarks/",
+    "Security Onion":"https://securityonionsolutions.com/training",
+    "VMware / vSphere":"https://www.vmware.com/education-services/learning-zone.html",
+    "Linux / Bash":"https://overthewire.org/wargames/bandit/",
+    "Python":"https://www.python.org/about/gettingstarted/",
+    "Git / GitHub":"https://docs.github.com/en/get-started",
+    "Docker":"https://docs.docker.com/get-started/",
+    "Terraform":"https://developer.hashicorp.com/terraform/tutorials",
+    "Burp Suite":"https://portswigger.net/burp/communitydownload",
+    "Metasploit":"https://docs.metasploit.com/",
+    "HackTheBox / CTF":"https://www.hackthebox.com/",
+    "Threat Intelligence":"https://www.cisa.gov/topics/cyber-threats-and-advisories",
+    "Zero Trust":"https://www.nist.gov/publications/zero-trust-architecture",
+    "DevSecOps":"https://owasp.org/www-project-devsecops-guideline/",
+    "Application Security":"https://owasp.org/www-project-top-ten/",
+    "ISO 27001":"https://www.iso.org/isoiec-27001-information-security.html",
+    "SOC 2":"https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report",
+    "PCI-DSS":"https://www.pcisecuritystandards.org/",
+    "OSCP":"https://www.offsec.com/courses/pen-200/",
+    "GCIH":"https://www.giac.org/certifications/certified-incident-handler-gcih/",
+    "Detection Engineering":"https://github.com/SigmaHQ/sigma",
+    "Purple Team":"https://www.attackiq.com/glossary/purple-team/",
+    "Zeek / NSM":"https://zeek.org/",
+    "Windows Event Logs":"https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/",
+    "SIEM Rule Engineering":"https://github.com/SigmaHQ/sigma",
+    "Incident Response (PICERL)":"https://www.sans.org/white-papers/incident-handlers-handbook/",
+    "Vulnerability Management":"https://www.tenable.com/blog/vulnerability-management-program",
+    "Backup & Disaster Recovery":"https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf",
+    "Cisco Packet Tracer":"https://www.netacad.com/courses/packet-tracer",
+    "Networking Fundamentals":"https://www.professormesser.com/network-plus/n10-008/n10-008-video/n10-008-comptia-network-plus-course/",
+    "VirtualBox / VMware":"https://www.virtualbox.org/",
+    "Kali Linux":"https://www.kali.org/docs/",
+    "Email Security":"https://www.cloudflare.com/learning/email-security/dmarc-dkim-spf/",
+    "Log Analysis":"https://www.loggly.com/ultimate-guide/linux-logging-basics/",
+    "Microsoft Intune":"https://learn.microsoft.com/en-us/mem/intune/",
+    "Azure Sentinel Playbooks":"https://learn.microsoft.com/en-us/azure/sentinel/automate-responses-with-playbooks",
+    "MITRE D3FEND":"https://d3fend.mitre.org/",
+    "Tabletop Exercises":"https://www.cisa.gov/resources-tools/services/tabletop-exercise-packages",
+    "Security Architecture Review":"https://owasp.org/www-community/Threat_Modeling",
+    "AI Model Red Teaming":"https://www.microsoft.com/en-us/security/blog/2023/08/07/microsoft-ai-red-team-building-future-of-safer-ai/",
+    "Federated Learning Security":"https://arxiv.org/abs/1912.04977",
+    "PowerShell":"https://learn.microsoft.com/en-us/powershell/scripting/overview",
+    "SQL":"https://www.w3schools.com/sql/",
+    "Microsoft SC-900":"https://learn.microsoft.com/en-us/certifications/exams/sc-900",
+    "Windows Server 2022":"https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022",
+    "Cisco IOS / CLI":"https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/configuration/xe-16/fundamentals-xe-16-book.html",
+    "Active Directory / SSO / LDAP":"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/active-directory-domain-services",
+    "Tcpdump":"https://www.tcpdump.org/manpages/tcpdump.1.html",
+    "Autopsy":"https://www.autopsy.com/support/training/",
+    "Volatility":"https://volatility3.readthedocs.io/",
+    "OWASP Top 10":"https://owasp.org/www-project-top-ten/",
+    "MITRE ATT&CK":"https://attack.mitre.org/",
+    "Nmap":"https://nmap.org/book/",
+    "Wireshark":"https://www.wireshark.org/docs/",
+    "VMware / vSphere":"https://docs.vmware.com/en/VMware-vSphere/index.html",
+    "Docker":"https://docs.docker.com/get-started/",
+    "Ansible":"https://docs.ansible.com/",
+    "Group Policy (GPO)":"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-overview",
+    "NIST 800-53":"https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final",
+    "RMF 800-37":"https://csrc.nist.gov/publications/detail/sp/800-37/rev-2/final",
+    "DISA STIG":"https://public.cyber.mil/stigs/",
+    "CIS Benchmarks":"https://www.cisecurity.org/cis-benchmarks",
+    "DoD 8570 / 8140":"https://public.cyber.mil/workforce/",
+    "RHCSA":"https://www.redhat.com/en/services/certification/rhcsa",
+    "GRC Mastery":"https://www.isaca.org/resources/isaca-journal/issues/2021/volume-2/implementing-a-grc-framework",
+    "NERC CIP":"https://www.nerc.com/pa/Stand/Pages/CIPStandards.aspx",
+    "IEC 62443":"https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards",
+    "SCADA Fundamentals":"https://www.cisa.gov/topics/industrial-control-systems",
+    "Network Segmentation":"https://www.nist.gov/publications/guide-network-segmentation-zero-trust",
+    "ISO 27001":"https://www.iso.org/isoiec-27001-information-security.html",
+    "SOC 2":"https://us.aicpa.org/interestareas/frc/assuranceadvisoryservices/aicpasoc2report",
+    "PCI-DSS":"https://www.pcisecuritystandards.org/",
+    "OSCP":"https://www.offsec.com/courses/pen-200/",
+    "GCIH":"https://www.giac.org/certifications/certified-incident-handler-gcih/",
+    "GIT / GitHub":"https://docs.github.com/en/get-started",
+    "Git / GitHub":"https://docs.github.com/en/get-started",
+    "Email Security":"https://www.cloudflare.com/learning/email-security/dmarc-dkim-spf/",
+    "Log Analysis":"https://www.loggly.com/ultimate-guide/linux-logging-basics/",
+    "Windows Event Logs":"https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/",
+    "SIEM Rule Engineering":"https://github.com/SigmaHQ/sigma",
+    "Elastic / ELK Stack":"https://www.elastic.co/guide/index.html",
+    "Microsoft Entra":"https://learn.microsoft.com/en-us/entra/",
+    "Microsoft Defender":"https://learn.microsoft.com/en-us/microsoft-365/security/defender/",
+    "Microsoft Sentinel":"https://learn.microsoft.com/en-us/azure/sentinel/",
+    "Azure Monitor / Log Analytics":"https://learn.microsoft.com/en-us/azure/azure-monitor/",
+    "KQL":"https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/",
+    "Tenable Nessus":"https://docs.tenable.com/nessus/",
+    "Firewall / pfSense":"https://docs.netgate.com/pfsense/en/latest/",
+    "NIST AI RMF":"https://www.nist.gov/system/files/documents/2023/01/26/AI%20RMF%201.0.pdf",
+    "Ollama":"https://ollama.ai/",
+    "Local LLM Operations":"https://github.com/ollama/ollama",
+    "Prompt Injection Defense":"https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+    "LLM Security":"https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+    "AI Agent Hardening":"https://www.nist.gov/artificial-intelligence",
+    "Secure AI Deployment":"https://www.cisa.gov/resources-tools/resources/deploying-ai-systems-securely",
+    "Air-Gap Architecture":"https://www.nsa.gov/portals/75/documents/what-we-do/cybersecurity/professional-resources/ctr-llm-discussion.pdf",
+    "TPM & Secure Boot":"https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/trusted-platform-module-overview",
+    "IMA / Integrity Measurement":"https://sourceforge.net/p/linux-ima/wiki/Home/",
+    "Supply Chain Security":"https://csrc.nist.gov/publications/detail/sp/800-161/rev-1/final",
+  };
+
+  const CERT_EXPIRY = {
+    "CompTIA A+":3,"CompTIA N+":3,"CompTIA S+":3,"CompTIA Linux+":3,
+    "CompTIA CySA+":3,"CompTIA SecurityX":3,
+    "Microsoft AZ-900":1,"Microsoft AZ-104":2,"Microsoft AZ-500":2,
+    "Microsoft SC-200":2,"Microsoft SC-900":1,
+    "CISSP":3,"RHCSA":3,"OSCP":3,"GCIH":4,"CompTIA PenTest+":3,
+  };
+
+  // Milestones config
+  const MILESTONES = [
+    { pct:25, title:"PHASE INITIATED", sub:"25% complete — keep moving", color:"#f5c842", emoji:"◈" },
+    { pct:50, title:"HALFWAY THERE", sub:"50% — you're building something real", color:"#4a9eff", emoji:"◉" },
+    { pct:75, title:"SENIOR TERRITORY", sub:"75% — most people quit here. You didn't.", color:"#a78bfa", emoji:"✦" },
+    { pct:100, title:"PHANTOM RANK", sub:"Full stack. Clearance eligible. Architect tier.", color:"#e879f9", emoji:"⬡" },
+  ];
 
   const PHASES = [
     {
-      id: "foundation", label: "Phase 01", sublabel: "Foundation",
-      subtitle: "Core IT & scripting fundamentals",
-      icon: "◈", color: "#00d4ff", dark: "rgba(0,30,45,0.8)",
-      salary: "$50k – $70k",
-      items: [
-        { title: "CompTIA A+",      desc: "Hardware, OS, troubleshooting — start here", tag: "CERT",      diff: 2, hours: 120 },
-        { title: "CompTIA N+",      desc: "Networking fundamentals, TCP/IP, routing",   tag: "CERT",      diff: 2, hours: 100 },
-        { title: "CompTIA S+",      desc: "Security baseline — required for most cyber roles", tag: "CERT", diff: 2, hours: 100 },
-        { title: "CompTIA Linux+",  desc: "Validates Linux skills — stacks with RHCSA and sysadmin degree", tag: "CERT", diff: 2, hours: 80  },
-        { title: "Linux / Bash",    desc: "CLI navigation, scripting, file permissions", tag: "SKILL",    diff: 2, hours: 60  },
-        { title: "PowerShell",      desc: "Windows automation, AD management",           tag: "SKILL",    diff: 2, hours: 40  },
-        { title: "Python",          desc: "Scripting, automation, tool building",        tag: "SKILL",    diff: 2, hours: 80  },
-        { title: "SQL",             desc: "Queries, joins, database fundamentals",       tag: "SKILL",    diff: 1, hours: 30  },
-        { title: "Git / GitHub",    desc: "Version control, repos, collaboration",       tag: "SKILL",    diff: 1, hours: 20  },
-        { title: "Microsoft AZ-900",  desc: "Azure fundamentals — easy entry point",     tag: "CERT",     diff: 1, hours: 30  },
-        { title: "Microsoft SC-900",  desc: "Security, compliance, identity fundamentals", tag: "CERT",   diff: 1, hours: 30  },
-        { title: "Windows Server 2022", desc: "ADDS, group policy, file services — core sysadmin", tag: "SKILL", diff: 2, hours: 60 },
-        { title: "Cisco IOS / CLI",   desc: "Routing, switching, firewall config — networking fundamentals", tag: "TOOL", diff: 2, hours: 50 },
-        { title: "Active Directory / SSO / LDAP", desc: "Enterprise identity and access management", tag: "SKILL", diff: 3, hours: 50 },
+      id:"foundation", label:"Phase 01", sublabel:"Foundation",
+      subtitle:"Core IT & scripting fundamentals",
+      icon:"◈", color:"#f5c842", dark:"rgba(20,16,0,0.9)", salary:"$50k – $70k",
+      items:[
+        { title:"CompTIA A+",               desc:"Hardware, OS, troubleshooting — start here",                            tag:"CERT",      diff:2, hours:120 },
+        { title:"Cisco Packet Tracer",      desc:"Free network simulator — build and troubleshoot virtual networks, essential N+ study companion", tag:"TOOL", diff:1, hours:20  },
+        { title:"Networking Fundamentals",  desc:"OSI model, TCP/IP stack, subnetting, DNS, DHCP, routing basics — foundation for everything", tag:"SKILL", diff:1, hours:30  },
+        { title:"VirtualBox / VMware",      desc:"Hypervisor for building local lab environments — practice everything without touching prod", tag:"TOOL", diff:1, hours:15  },
+        { title:"CompTIA N+",               desc:"Networking fundamentals, TCP/IP, routing",                              tag:"CERT",      diff:2, hours:100 },
+        { title:"CompTIA S+",               desc:"Security baseline — required for most cyber roles",                     tag:"CERT",      diff:2, hours:100 },
+        { title:"CompTIA Linux+",           desc:"Validates Linux skills — stacks with RHCSA",                            tag:"CERT",      diff:2, hours:80  },
+        { title:"Linux / Bash",             desc:"CLI navigation, scripting, file permissions",                           tag:"SKILL",     diff:2, hours:60  },
+        { title:"PowerShell",               desc:"Windows automation, AD management",                                     tag:"SKILL",     diff:2, hours:40  },
+        { title:"Python",                   desc:"Scripting, automation, tool building",                                  tag:"SKILL",     diff:2, hours:80  },
+        { title:"SQL",                      desc:"Queries, joins, database fundamentals",                                 tag:"SKILL",     diff:1, hours:30  },
+        { title:"Git / GitHub",             desc:"Version control, repos, collaboration",                                 tag:"SKILL",     diff:1, hours:20  },
+        { title:"Microsoft AZ-900",         desc:"Azure fundamentals — easy entry point",                                 tag:"CERT",      diff:1, hours:30  },
+        { title:"Microsoft SC-900",         desc:"Security, compliance, identity fundamentals",                           tag:"CERT",      diff:1, hours:30  },
+        { title:"Windows Server 2022",      desc:"ADDS, group policy, file services — core sysadmin",                    tag:"SKILL",     diff:2, hours:60  },
+        { title:"Cisco IOS / CLI",          desc:"Routing, switching, firewall config",                                   tag:"TOOL",      diff:2, hours:50  },
+        { title:"Active Directory / SSO / LDAP", desc:"Enterprise identity and access management",                       tag:"SKILL",     diff:3, hours:50  },
       ]
     },
     {
-      id: "security", label: "Phase 02", sublabel: "Security Core",
-      subtitle: "Offensive & defensive fundamentals",
-      icon: "◉", color: "#ff3c3c", dark: "rgba(40,5,5,0.8)",
-      salary: "$75k – $100k",
-      items: [
-        { title: "TryHackMe SEC0",  desc: "Introduction to cybersecurity fundamentals", tag: "TRAINING", diff: 1, hours: 20  },
-        { title: "TryHackMe SEC1",  desc: "Hands-on attack & defense labs",             tag: "TRAINING", diff: 2, hours: 40  },
-        { title: "TryHackMe SAL1",  desc: "Security analyst learning path",             tag: "TRAINING", diff: 2, hours: 50  },
-        { title: "CompTIA CySA+",   desc: "Threat detection, analysis, and response",   tag: "CERT",     diff: 3, hours: 120 },
-        { title: "Wireshark",       desc: "Packet capture and traffic analysis",        tag: "TOOL",     diff: 2, hours: 30  },
-        { title: "Nmap",            desc: "Network scanning and enumeration",           tag: "TOOL",     diff: 1, hours: 15  },
-        { title: "Tcpdump",         desc: "CLI packet analysis",                        tag: "TOOL",     diff: 2, hours: 15  },
-        { title: "Autopsy",         desc: "Digital forensics platform — investigate drives, deleted files, timelines", tag: "TOOL", diff: 2, hours: 30  },
-        { title: "Volatility",      desc: "Memory forensics — analyze RAM dumps for malware and hidden activity", tag: "TOOL", diff: 3, hours: 35 },
-        { title: "MITRE ATT&CK",    desc: "Adversary tactics and techniques framework", tag: "FRAMEWORK",diff: 2, hours: 25  },
-        { title: "OWASP Top 10",    desc: "Web application security vulnerabilities",   tag: "FRAMEWORK",diff: 2, hours: 20  },
-        { title: "Splunk",          desc: "SIEM log analysis and threat hunting",       tag: "TOOL",     diff: 2, hours: 40  },
-
-        { title: "Elastic / ELK Stack", desc: "Open source SIEM and log analysis platform", tag: "TOOL",  diff: 2, hours: 40  },
-        { title: "Security Onion",  desc: "Free open source SIEM used in real SOCs and training", tag: "TOOL", diff: 2, hours: 30 },
+      id:"security", label:"Phase 02", sublabel:"Security Core",
+      subtitle:"Offensive & defensive fundamentals",
+      icon:"◉", color:"#e8734a", dark:"rgba(28,10,4,0.9)", salary:"$75k – $100k",
+      items:[
+        { title:"TryHackMe SEC0",       desc:"Introduction to cybersecurity fundamentals",                                tag:"TRAINING",  diff:1, hours:20  },
+        { title:"TryHackMe SEC1",       desc:"Hands-on attack & defense labs",                                            tag:"TRAINING",  diff:2, hours:40  },
+        { title:"TryHackMe SAL1",       desc:"Security analyst learning path",                                            tag:"TRAINING",  diff:2, hours:50  },
+        { title:"CompTIA CySA+",        desc:"Threat detection, analysis, and response",                                  tag:"CERT",      diff:3, hours:120 },
+        { title:"Wireshark",            desc:"Packet capture and traffic analysis",                                       tag:"TOOL",      diff:2, hours:30  },
+        { title:"Nmap",                 desc:"Network scanning and enumeration",                                          tag:"TOOL",      diff:1, hours:15  },
+        { title:"Tcpdump",              desc:"CLI packet analysis",                                                       tag:"TOOL",      diff:2, hours:15  },
+        { title:"Autopsy",              desc:"Digital forensics — investigate drives, deleted files, timelines",          tag:"TOOL",      diff:2, hours:30  },
+        { title:"Volatility",           desc:"Memory forensics — analyze RAM dumps for malware",                          tag:"TOOL",      diff:3, hours:35  },
+        { title:"MITRE ATT&CK",         desc:"Adversary tactics and techniques framework",                                tag:"FRAMEWORK", diff:2, hours:25  },
+        { title:"OWASP Top 10",         desc:"Web application security vulnerabilities",                                  tag:"FRAMEWORK", diff:2, hours:20  },
+        { title:"Splunk",               desc:"SIEM log analysis and threat hunting",                                      tag:"TOOL",      diff:2, hours:40  },
+        { title:"Elastic / ELK Stack",  desc:"Open source SIEM and log analysis platform",                               tag:"TOOL",      diff:2, hours:40  },
+        { title:"Security Onion",       desc:"Free open source SIEM used in real SOCs",                                  tag:"TOOL",      diff:2, hours:30  },
+        { title:"Burp Suite",           desc:"Web application security testing — intercept, scan, exploit",                tag:"TOOL",      diff:2, hours:30  },
+        { title:"Metasploit",           desc:"Penetration testing framework — exploit development and execution",           tag:"TOOL",      diff:3, hours:40  },
+        { title:"HackTheBox / CTF",     desc:"Hands-on attack/defense challenges — real-world offensive practice",          tag:"TRAINING",  diff:2, hours:60  },
+        { title:"Threat Intelligence",  desc:"IOC analysis, threat feeds, OSINT — understanding adversary TTPs",           tag:"SKILL",     diff:2, hours:30  },
+        { title:"Zero Trust",           desc:"Never trust always verify — microsegmentation, identity-first architecture", tag:"FRAMEWORK", diff:2, hours:20  },
+        { title:"Zeek / NSM",             desc:"Network Security Monitoring — traffic analysis, connection logs, threat hunting", tag:"TOOL",      diff:2, hours:30  },
+        { title:"Kali Linux",              desc:"Penetration testing OS — essential toolkit for offensive security and CTF work",          tag:"TOOL",      diff:2, hours:25  },
+        { title:"Email Security",          desc:"SPF, DKIM, DMARC, phishing analysis — most common attack vector at utilities",           tag:"SKILL",     diff:2, hours:20  },
+        { title:"Log Analysis",            desc:"Reading raw auth logs, syslog, system logs manually — the skill underneath every SIEM",  tag:"SKILL",     diff:2, hours:25  },
+        { title:"Windows Event Logs",     desc:"Event IDs, log analysis, detecting lateral movement and privilege escalation",  tag:"SKILL",     diff:2, hours:25  },
       ]
     },
     {
-      id: "cloud", label: "Phase 03", sublabel: "Cloud & Microsoft",
-      subtitle: "Azure security engineering stack",
-      icon: "⬡", color: "#0ea5e9", dark: "rgba(0,20,40,0.8)",
-      salary: "$100k – $140k",
-      items: [
-
-        { title: "Microsoft AZ-104",              desc: "Azure Administrator — core cloud ops",          tag: "CERT",  diff: 3, hours: 120 },
-        { title: "Microsoft AZ-500",              desc: "Azure Security Engineer — high value cert",     tag: "CERT",  diff: 3, hours: 120 },
-        { title: "Microsoft SC-200",              desc: "Security Operations Analyst",                   tag: "CERT",  diff: 3, hours: 100 },
-
-        { title: "Microsoft Entra",               desc: "Identity platform, IAM, conditional access",   tag: "TOOL",  diff: 2, hours: 30  },
-        { title: "Microsoft Defender",            desc: "Endpoint, cloud, and identity protection",     tag: "TOOL",  diff: 2, hours: 30  },
-        { title: "Microsoft Sentinel",            desc: "Cloud-native SIEM and SOAR",                   tag: "TOOL",  diff: 3, hours: 50  },
-        { title: "Azure Monitor / Log Analytics", desc: "Monitoring, alerting, log queries",            tag: "TOOL",  diff: 2, hours: 30  },
-        { title: "KQL",                           desc: "Kusto Query Language for Sentinel & Defender", tag: "SKILL", diff: 2, hours: 30  },
+      id:"cloud", label:"Phase 03", sublabel:"Cloud & Microsoft",
+      subtitle:"Azure security engineering stack",
+      icon:"⬡", color:"#4a9eff", dark:"rgba(4,14,28,0.9)", salary:"$100k – $140k",
+      items:[
+        { title:"Microsoft AZ-104",              desc:"Azure Administrator — core cloud ops",                             tag:"CERT",      diff:3, hours:120 },
+        { title:"Microsoft AZ-500",              desc:"Azure Security Engineer — high value cert",                        tag:"CERT",      diff:3, hours:120 },
+        { title:"Microsoft SC-200",              desc:"Security Operations Analyst",                                      tag:"CERT",      diff:3, hours:100 },
+        { title:"Microsoft Entra",               desc:"Identity platform, IAM, conditional access",                      tag:"TOOL",      diff:2, hours:30  },
+        { title:"Microsoft Defender",            desc:"Endpoint, cloud, and identity protection",                        tag:"TOOL",      diff:2, hours:30  },
+        { title:"Microsoft Sentinel",            desc:"Cloud-native SIEM and SOAR",                                      tag:"TOOL",      diff:3, hours:50  },
+        { title:"Azure Monitor / Log Analytics", desc:"Monitoring, alerting, log queries",                               tag:"TOOL",      diff:2, hours:30  },
+        { title:"KQL",                           desc:"Kusto Query Language for Sentinel & Defender",                    tag:"SKILL",     diff:2, hours:30  },
+        { title:"DevSecOps",                     desc:"Security in CI/CD pipelines — SAST, DAST, secret scanning, IaC security", tag:"SKILL",  diff:3, hours:50  },
+        { title:"Application Security",          desc:"OWASP secure coding, code review, API security, AppSec testing",    tag:"SKILL",     diff:3, hours:50  },
+        { title:"SIEM Rule Engineering",         desc:"Writing correlation rules, Sigma rules, tuning alerts, reducing false positives", tag:"SKILL", diff:3, hours:40  },
+        { title:"Microsoft Intune",              desc:"Endpoint management, MDM, device compliance — pairs with Entra and Defender",          tag:"TOOL",  diff:2, hours:30  },
+        { title:"Azure Sentinel Playbooks",      desc:"SOAR automation, Logic Apps for incident response — automate alert triage in Sentinel", tag:"SKILL", diff:3, hours:35  },
       ]
     },
     {
-      id: "advanced", label: "Phase 04", sublabel: "Advanced & GRC",
-      subtitle: "Architecture, compliance, and mastery",
-      icon: "✦", color: "#a855f7", dark: "rgba(20,5,40,0.8)",
-      salary: "$140k – $200k+",
-      items: [
-        { title: "VMware / vSphere",             desc: "Virtualization platform management",              tag: "TOOL",      diff: 2, hours: 40  },
-        { title: "Terraform",                    desc: "Infrastructure as code",                         tag: "TOOL",      diff: 3, hours: 60  },
-        { title: "Docker",                       desc: "Containerization fundamentals",                  tag: "TOOL",      diff: 2, hours: 40  },
-
-
-        { title: "Group Policy (GPO)",          desc: "Security hardening via GPO — daily task in DoD environments", tag: "SKILL", diff: 2, hours: 30 },
-        { title: "NIST 800-53",                  desc: "Security and privacy controls framework",        tag: "FRAMEWORK", diff: 3, hours: 50  },
-        { title: "RMF 800-37",                   desc: "DoD Risk Management Framework",                  tag: "FRAMEWORK", diff: 3, hours: 50  },
-        { title: "RHCSA",                        desc: "Red Hat Certified System Administrator — DoD Linux standard", tag: "CERT", diff: 3, hours: 120 },
-        { title: "DoD 8570 / 8140",             desc: "DoD approved cert framework — know exactly what you need by role", tag: "FRAMEWORK", diff: 1, hours: 20  },
-        { title: "DISA STIG",                    desc: "DoD security technical implementation guides",   tag: "FRAMEWORK", diff: 3, hours: 40  },
-        { title: "CIS Benchmarks",              desc: "Security hardening standards — pairs with DISA STIG", tag: "FRAMEWORK", diff: 2, hours: 30 },
-        { title: "Tenable Nessus",              desc: "Vulnerability scanning — daily tool in DoD security roles",  tag: "TOOL",      diff: 2, hours: 30  },
-        { title: "Ansible",                     desc: "Configuration management and automation — pairs with Terraform", tag: "TOOL",     diff: 2, hours: 40  },
-        { title: "CyberRange",                   desc: "Hands-on attack/defense simulation environments",tag: "TRAINING",  diff: 3, hours: 80  },
-        { title: "GRC Mastery",                  desc: "Governance, Risk & Compliance — executive level",tag: "SKILL",     diff: 3, hours: 60  },
+      id:"advanced", label:"Phase 04", sublabel:"Advanced & GRC",
+      subtitle:"Architecture, compliance, and mastery",
+      icon:"✦", color:"#a78bfa", dark:"rgba(20,5,40,0.85)", salary:"$140k – $200k+",
+      items:[
+        { title:"VMware / vSphere",           desc:"Virtualization platform management",                                  tag:"TOOL",      diff:2, hours:40  },
+        { title:"Terraform",                  desc:"Infrastructure as code",                                             tag:"TOOL",      diff:3, hours:60  },
+        { title:"Docker",                     desc:"Containerization fundamentals",                                      tag:"TOOL",      diff:2, hours:40  },
+        { title:"Group Policy (GPO)",         desc:"Security hardening via GPO — daily task in DoD environments",        tag:"SKILL",     diff:2, hours:30  },
+        { title:"NIST 800-53",                desc:"Security and privacy controls framework",                            tag:"FRAMEWORK", diff:3, hours:50  },
+        { title:"RMF 800-37",                 desc:"DoD Risk Management Framework",                                      tag:"FRAMEWORK", diff:3, hours:50  },
+        { title:"RHCSA",                      desc:"Red Hat Certified System Administrator — DoD Linux standard",        tag:"CERT",      diff:3, hours:120 },
+        { title:"DoD 8570 / 8140",           desc:"DoD approved cert framework — know what you need by role",            tag:"FRAMEWORK", diff:1, hours:20  },
+        { title:"DISA STIG",                  desc:"DoD security technical implementation guides",                       tag:"FRAMEWORK", diff:3, hours:40  },
+        { title:"CIS Benchmarks",             desc:"Security hardening standards — pairs with DISA STIG",               tag:"FRAMEWORK", diff:2, hours:30  },
+        { title:"Tenable Nessus",             desc:"Vulnerability scanning — daily tool in DoD security roles",          tag:"TOOL",      diff:2, hours:30  },
+        { title:"Ansible",                    desc:"Configuration management — pairs with Terraform",                    tag:"TOOL",      diff:2, hours:40  },
+        { title:"GRC Mastery",                desc:"Governance, Risk & Compliance — executive level",                    tag:"SKILL",     diff:3, hours:60  },
+        { title:"CompTIA SecurityX",          desc:"CASP+ rebranded — expert-level enterprise security architect cert",  tag:"CERT",      diff:3, hours:150 },
+        { title:"CISSP",                      desc:"Gold standard security cert — 5yr experience required, DoD 8570 IAT/IAM III", tag:"CERT", diff:3, hours:200 },
+        { title:"NERC CIP",                   desc:"Critical infrastructure protection standards — mandatory for utilities and BES operators", tag:"FRAMEWORK", diff:3, hours:60 },
+        { title:"IEC 62443",                  desc:"OT/ICS security standard — zone/conduit model for industrial control systems", tag:"FRAMEWORK", diff:3, hours:50 },
+        { title:"SCADA Fundamentals",         desc:"Supervisory control and data acquisition — how utility control systems work", tag:"SKILL", diff:2, hours:40 },
+        { title:"Firewall / pfSense",         desc:"Open source firewall — rules, VLANs, traffic monitoring, network segmentation", tag:"TOOL", diff:2, hours:30 },
+        { title:"Network Segmentation",       desc:"Zone isolation, VLAN design, defense-in-depth network architecture", tag:"SKILL",     diff:2, hours:30 },
+        { title:"ISO 27001",                  desc:"International security management standard — audit and compliance framework", tag:"FRAMEWORK", diff:3, hours:40 },
+        { title:"SOC 2",                      desc:"Service org compliance — trust service criteria, audit readiness",     tag:"FRAMEWORK", diff:2, hours:30 },
+        { title:"PCI-DSS",                    desc:"Payment card industry security standard — cardholder data protection",  tag:"FRAMEWORK", diff:2, hours:30 },
+        { title:"OSCP",                       desc:"Offensive Security Certified Professional — gold standard pen test cert", tag:"CERT",     diff:3, hours:300 },
+        { title:"GCIH",                       desc:"GIAC Certified Incident Handler — hands-on incident response cert",    tag:"CERT",      diff:3, hours:120 },
+        { title:"Detection Engineering",      desc:"Build SIEM rules, sigma rules, behavioral detections from scratch",    tag:"SKILL",     diff:3, hours:60 },
+        { title:"Purple Team",                desc:"Combined red/blue team exercises — adversary emulation and detection",  tag:"TRAINING",  diff:3, hours:80 },
+        { title:"Incident Response (PICERL)", desc:"Prepare, Identify, Contain, Eradicate, Recover, Lessons Learned — formal IR process", tag:"FRAMEWORK", diff:2, hours:30 },
+        { title:"Vulnerability Management",   desc:"Scan scheduling, remediation tracking, risk acceptance — core NERC CIP requirement", tag:"SKILL", diff:2, hours:30 },
+        { title:"Backup & Disaster Recovery", desc:"RPO/RTO concepts, backup verification, recovery testing — utility continuity requirements", tag:"SKILL", diff:2, hours:20 },
+        { title:"MITRE D3FEND",               desc:"Defensive counterpart to ATT&CK — maps defensive techniques to offensive TTPs", tag:"FRAMEWORK", diff:2, hours:20 },
+        { title:"Tabletop Exercises",          desc:"Running IR simulations with stakeholders — required for NERC CIP compliance", tag:"TRAINING", diff:2, hours:20 },
+        { title:"Security Architecture Review", desc:"Threat modeling, STRIDE methodology, design review — how to evaluate system security", tag:"SKILL", diff:3, hours:40 },
+      ]
+    },
+    {
+      id:"ai", label:"Phase 05", sublabel:"AI Security",
+      subtitle:"Secure AI deployment & LLM operations",
+      icon:"⬡", color:"#34d399", dark:"rgba(4,18,10,0.9)", salary:"$140k – $220k+",
+      items:[
+        { title:"NIST AI RMF",              desc:"AI Risk Management Framework — Govern, Map, Measure, Manage",             tag:"FRAMEWORK", diff:2, hours:40  },
+        { title:"Ollama",                   desc:"Local LLM runtime — deploy and manage models on-device",                  tag:"TOOL",      diff:1, hours:20  },
+        { title:"Local LLM Operations",     desc:"Model selection, quantization, context management, prompt design",        tag:"SKILL",     diff:2, hours:40  },
+        { title:"Prompt Injection Defense", desc:"OWASP LLM Top 10 — detect and mitigate prompt injection attacks",         tag:"FRAMEWORK", diff:3, hours:30  },
+        { title:"LLM Security",             desc:"OWASP LLM Top 10 — full threat model for language model applications",    tag:"FRAMEWORK", diff:3, hours:40  },
+        { title:"AI Agent Hardening",       desc:"Secure agentic pipelines — tool call auditing, sandboxing, least privilege", tag:"SKILL",  diff:3, hours:50  },
+        { title:"Secure AI Deployment",     desc:"CISA AI guidance — secure deployment patterns for AI systems",             tag:"FRAMEWORK", diff:2, hours:30  },
+        { title:"Air-Gap Architecture",     desc:"Network isolation design — zero cloud, host-only, SSH tunneling patterns", tag:"SKILL",    diff:3, hours:40  },
+        { title:"TPM & Secure Boot",        desc:"Hardware root of trust — TPM 2.0, measured boot, PCR integrity",          tag:"TOOL",      diff:3, hours:35  },
+        { title:"IMA / Integrity Measurement", desc:"Linux IMA — runtime file integrity verification for hardened systems",  tag:"TOOL",      diff:3, hours:30  },
+        { title:"Supply Chain Security",    desc:"NIST SP 800-161 — software and AI model supply chain risk management",    tag:"FRAMEWORK", diff:2, hours:30  },
+        { title:"AI Model Red Teaming",     desc:"Adversarial testing of AI models — probing for manipulation, bias, and data leakage",  tag:"TRAINING",  diff:3, hours:30  },
+        { title:"Federated Learning Security", desc:"Privacy-preserving ML — securing distributed training, model poisoning defense",   tag:"SKILL",     diff:3, hours:25  },
       ]
     },
   ];
 
   const TAG_META = {
-    CERT:      { bg: "#001828", text: "#00d4ff", border: "#004466", label: "CERT" },
-    SKILL:     { bg: "#001a08", text: "#22c55e", border: "#14532d", label: "SKILL" },
-    TOOL:      { bg: "#130820", text: "#c084fc", border: "#4c1d95", label: "TOOL" },
-    FRAMEWORK: { bg: "#1a0f00", text: "#f59e0b", border: "#78350f", label: "FW" },
-    TRAINING:  { bg: "#1a0505", text: "#f87171", border: "#7f1d1d", label: "LAB" },
+    CERT:      { bg:"#1a1400", text:"#f5c842", border:"#3d3000", label:"CERT" },
+    SKILL:     { bg:"#0a1a0e", text:"#34d399", border:"#14532d", label:"SKILL" },
+    TOOL:      { bg:"#120c24", text:"#a78bfa", border:"#2e1a5e", label:"TOOL" },
+    FRAMEWORK: { bg:"#1a0e00", text:"#fb923c", border:"#7c2d12", label:"FW" },
+    TRAINING:  { bg:"#1a0808", text:"#f87171", border:"#7f1d1d", label:"LAB" },
   };
 
   function getLevelInfo(xp) {
-    let current = LEVELS[0];
-    let next = LEVELS[1];
-    for (let i = LEVELS.length - 1; i >= 0; i--) {
-      if (xp >= LEVELS[i].xpRequired) {
-        current = LEVELS[i];
-        next = LEVELS[i + 1] || null;
-        break;
-      }
+    let current=LEVELS[0], next=LEVELS[1];
+    for(let i=LEVELS.length-1;i>=0;i--) {
+      if(xp>=LEVELS[i].xpRequired){current=LEVELS[i];next=LEVELS[i+1]||null;break;}
     }
-    const xpInLevel = xp - current.xpRequired;
-    const xpNeeded = next ? next.xpRequired - current.xpRequired : 1;
-    const pct = next ? Math.round((xpInLevel / xpNeeded) * 100) : 100;
-    return { current, next, pct, xpInLevel, xpNeeded };
+    const xpInLevel=xp-current.xpRequired;
+    const xpNeeded=next?next.xpRequired-current.xpRequired:1;
+    const pct=next?Math.round((xpInLevel/xpNeeded)*100):100;
+    return{current,next,pct,xpInLevel,xpNeeded};
   }
 
-  function Tag({ type, light }) {
-    const m = TAG_META[type] || TAG_META.SKILL;
-    return (
-      <span style={{
-        fontSize: 8, fontFamily: "'Share Tech Mono', monospace",
-        letterSpacing: 2, padding: "2px 7px", borderRadius: 2,
-        background: light ? "rgba(0,0,0,0.06)" : m.bg,
-        color: m.text, border: `1px solid ${m.border}`,
-        whiteSpace: "nowrap", flexShrink: 0,
-      }}>{m.label}</span>
+  function Tag({type,light}){
+    const m=TAG_META[type]||TAG_META.SKILL;
+    return <span style={{fontSize:10,fontFamily:"'IBM Plex Mono', monospace",letterSpacing:1.5,padding:"2px 8px",borderRadius:R.sm,background:light?"rgba(0,0,0,0.06)":m.bg,color:m.text,border:`1px solid ${m.border}`,whiteSpace:"nowrap",flexShrink:0}}>{m.label}</span>;
+  }
+
+  function Stars({count,color,darkMode}){
+    return <span style={{display:"flex",gap:3,alignItems:"center"}}>{[1,2,3].map(i=><span key={i} style={{width:7,height:7,borderRadius:"50%",background:i<=count?color:(darkMode?"rgba(255,255,255,0.1)":"rgba(0,0,0,0.12)"),display:"inline-block",boxShadow:i<=count?`0 0 5px ${color}`:"none",transition:"all 0.2s"}}/>)}</span>;
+  }
+
+  function ProgressRing({pct,color,size=38,darkMode,complete=false}){
+    const r=(size-5)/2,circ=2*Math.PI*r,dash=(pct/100)*circ;
+    return <svg width={size} height={size} style={{transform:"rotate(-90deg)",flexShrink:0,animation:complete?"ringComplete 1.5s ease 3":undefined}}>
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={darkMode?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.10)"} strokeWidth="3"/>
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={pct===100?"#34d399":color} strokeWidth="3"
+        strokeDasharray={`${dash} ${circ}`} strokeLinecap="round"
+        style={{transition:"stroke-dasharray 0.5s ease",filter:`drop-shadow(0 0 ${pct===100?6:3}px ${pct===100?"#34d399":color})`}}/>
+    </svg>;
+  }
+
+  // FIX #12: Confetti on milestone
+  function Confetti(){
+    const pieces = Array.from({length:24},(_,i)=>({
+      id:i, x:Math.random()*100, delay:Math.random()*0.5,
+      color:["#f5c842","#34d399","#a78bfa","#f5c842","#f87171","#e879f9"][i%6],
+      size:6+Math.random()*6,
+    }));
+    return <>{pieces.map(p=><div key={p.id} className="confetti-piece" style={{left:`${p.x}%`,top:"20%",width:p.size,height:p.size,background:p.color,animationDelay:`${p.delay}s`}}/>)}</>;
+  }
+
+  function XPPopup({xp,color}){
+    return <div style={{position:"fixed",top:"45%",left:"50%",transform:"translate(-50%,-50%)",fontFamily:"'IBM Plex Sans'",fontSize:24,fontWeight:900,color,textShadow:`0 0 24px ${color}`,animation:"xpPop 1s ease forwards",pointerEvents:"none",zIndex:9999,letterSpacing:2}}>+{xp} XP</div>;
+  }
+
+  // ── MILESTONE BANNER ────────────────────────────────────
+  function MilestoneBanner({milestone,onClose}){
+    const [showConfetti,setShowConfetti]=useState(true);
+    useEffect(()=>{const t=setTimeout(()=>setShowConfetti(false),2000);return()=>clearTimeout(t);},[]);
+    return <>
+      {showConfetti&&<Confetti/>}
+      <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.85)",backdropFilter:"blur(12px)",zIndex:9990,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={onClose}>
+        <div style={{textAlign:"center",animation:"milestoneIn 0.4s cubic-bezier(0.34,1.56,0.64,1)"}} onClick={e=>e.stopPropagation()}>
+          <div style={{fontSize:64,marginBottom:16,filter:`drop-shadow(0 0 30px ${milestone.color})`}}>{milestone.emoji}</div>
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:milestone.color,letterSpacing:4,marginBottom:10}}>// MILESTONE REACHED</div>
+          <div style={{fontFamily:"'IBM Plex Sans'",fontSize:28,fontWeight:900,color:"#fff",letterSpacing:2,marginBottom:8,textShadow:`0 0 30px ${milestone.color}`}}>{milestone.title}</div>
+          <div style={{fontFamily:"'IBM Plex Sans'",fontSize:16,fontWeight:500,color:"rgba(255,255,255,0.65)",marginBottom:28,letterSpacing:1}}>{milestone.sub}</div>
+          <button onClick={onClose} style={{background:`${milestone.color}20`,border:`1px solid ${milestone.color}50`,borderRadius:R.pill,padding:"12px 32px",color:milestone.color,fontFamily:"'IBM Plex Mono'",fontSize:11,letterSpacing:2,cursor:"pointer",transition:"all 0.2s"}}>
+            KEEP GOING →
+          </button>
+        </div>
+      </div>
+    </>;
+  }
+
+  // ── PHASE ACHIEVEMENT ───────────────────────────────────
+  const PHASE_BADGES={"foundation":"◈","security":"◉","cloud":"⬡","advanced":"✦","ai":"⬟"};
+  const PHASE_TITLES={"foundation":"FOUNDATION COMPLETE","security":"SECURITY CORE COMPLETE","cloud":"CLOUD READY","advanced":"ADVANCED OPERATOR","ai":"AI SECURITY CERTIFIED"};
+  const PHASE_SUBS={"foundation":"You've got the fundamentals. Time to get offensive.","security":"Core security skills locked in. Cloud is next.","cloud":"Microsoft stack mastered. GRC & advanced ops await.","advanced":"Senior-level skills. AI security is the final frontier.","ai":"Full stack. Clearance eligible. Architect tier."};
+
+  function PhaseAchievement({phase,onClose}){
+    const [showConfetti,setShowConfetti]=useState(true);
+    const [show,setShow]=useState(true);
+    useEffect(()=>{const t=setTimeout(()=>setShowConfetti(false),2500);return()=>clearTimeout(t);},[]);
+    const badge=PHASE_BADGES[phase.id]||"◈";
+    const title=PHASE_TITLES[phase.id]||`${phase.sublabel.toUpperCase()} COMPLETE`;
+    const sub=PHASE_SUBS[phase.id]||"Phase complete. Keep going.";
+    if(!show)return null;
+    return <>
+      {showConfetti&&<Confetti/>}
+      <div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.92)",backdropFilter:"blur(16px)",zIndex:9991,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>{setShow(false);onClose();}}>
+        <div style={{textAlign:"center",maxWidth:360,animation:"milestoneIn 0.5s cubic-bezier(0.34,1.56,0.64,1)"}} onClick={e=>e.stopPropagation()}>
+          {/* Phase badge ring */}
+          <div style={{width:100,height:100,borderRadius:"50%",border:`3px solid ${phase.color}`,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px",boxShadow:`0 0 40px ${phase.color}50,inset 0 0 20px ${phase.color}10`}}>
+            <span style={{fontSize:42,color:phase.color,lineHeight:1}}>{badge}</span>
+          </div>
+          {/* Phase label */}
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:phase.color,letterSpacing:4,marginBottom:10}}>// PHASE {phase.label.replace("Phase ","")} COMPLETE</div>
+          {/* Title */}
+          <div style={{fontFamily:"'IBM Plex Sans'",fontSize:24,fontWeight:900,color:"#fff",letterSpacing:1,marginBottom:8,lineHeight:1.2,textShadow:`0 0 30px ${phase.color}`}}>{title}</div>
+          {/* Salary unlock */}
+          <div style={{display:"inline-flex",alignItems:"center",gap:8,background:`${phase.color}15`,border:`1px solid ${phase.color}40`,borderRadius:99,padding:"6px 18px",marginBottom:16}}>
+            <span style={{fontFamily:"'IBM Plex Mono'",fontSize:10,color:phase.color,letterSpacing:2}}>SALARY RANGE UNLOCKED</span>
+            <span style={{fontFamily:"'IBM Plex Sans'",fontSize:13,fontWeight:900,color:"#fff"}}>{phase.salary}</span>
+          </div>
+          {/* Sub */}
+          <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:500,color:"rgba(255,255,255,0.6)",marginBottom:28,letterSpacing:0.5,lineHeight:1.5}}>{sub}</div>
+          {/* Stats row */}
+          <div style={{display:"flex",gap:12,justifyContent:"center",marginBottom:28}}>
+            <div style={{background:"rgba(255,255,255,0.05)",borderRadius:10,padding:"10px 18px",textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:20,fontWeight:900,color:phase.color}}>{phase.items.length}</div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:"rgba(255,255,255,0.35)",letterSpacing:2,marginTop:2}}>SKILLS</div>
+            </div>
+            <div style={{background:"rgba(255,255,255,0.05)",borderRadius:10,padding:"10px 18px",textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:20,fontWeight:900,color:"#f5c842"}}>{phase.items.reduce((s,i)=>s+i.hours,0)}h</div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:"rgba(255,255,255,0.35)",letterSpacing:2,marginTop:2}}>HOURS</div>
+            </div>
+          </div>
+          <button onClick={()=>{setShow(false);onClose();}} style={{background:`${phase.color}20`,border:`1px solid ${phase.color}60`,borderRadius:R.pill,padding:"13px 36px",color:phase.color,fontFamily:"'IBM Plex Mono'",fontSize:11,letterSpacing:2,cursor:"pointer",transition:"all 0.2s",fontWeight:600}}>
+            NEXT PHASE →
+          </button>
+        </div>
+      </div>
+    </>;
+  }
+
+  // ── DETAIL MODAL ────────────────────────────────────────
+  function DetailModal({item,phaseColor,phaseId,idx,onClose,noteVal,onSaveNote,completedDate,darkMode,isPriority,onTogglePriority,labHoursVal,onSaveLabHours}){
+    const [note,setNote]=useState(noteVal||"");
+    const [labH,setLabH]=useState(labHoursVal||0);
+    const textMain=darkMode?"#e0e0e0":"#111111";
+    const textMuted=darkMode?"rgba(255,255,255,0.38)":"rgba(0,0,0,0.55)";
+    const resource=RESOURCES[item.title];
+    const expiry=CERT_EXPIRY[item.title];
+    let expiryDate=null;
+    if(completedDate&&expiry){const d=new Date(completedDate);d.setFullYear(d.getFullYear()+expiry);expiryDate=d;}
+    const isExpiringSoon=expiryDate&&(expiryDate-new Date())<1000*60*60*24*30*6;
+    const isExpired=expiryDate&&expiryDate<new Date();
+    return(
+      <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&onClose()}>
+        <div className="modal-box">
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:18}}>
+            <div style={{flex:1,minWidth:0,paddingRight:12}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:15,fontWeight:700,color:phaseColor,letterSpacing:1,marginBottom:6}}>{item.title}</div>
+              <div style={{display:"flex",gap:6,alignItems:"center",flexWrap:"wrap"}}>
+                <Tag type={item.tag} light={!darkMode}/>
+                <Stars count={item.diff} color={DIFFICULTY[item.diff].color} darkMode={darkMode}/>
+                <span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:textMuted,letterSpacing:1}}>~{item.hours}h estimated · +{XP_VALUES[item.tag]} XP</span>
+              </div>
+            </div>
+            <div style={{display:"flex",gap:8,flexShrink:0}}>
+              <button onClick={onTogglePriority} title={isPriority?"Remove from focus":"Add to focus"} style={{background:isPriority?"rgba(245,158,11,0.15)":"none",border:`1px solid ${isPriority?"rgba(245,158,11,0.4)":(darkMode?"rgba(255,255,255,0.1)":"rgba(0,0,0,0.15)")}`,borderRadius:R.md,padding:"6px 8px",cursor:"pointer",fontSize:14,lineHeight:1,color:isPriority?"#f5c842":textMuted,transition:"all 0.2s"}}>⭐</button>
+              <button onClick={onClose} style={{background:"none",border:"none",color:textMuted,cursor:"pointer",fontSize:22,lineHeight:1,padding:"2px 4px"}}>×</button>
+            </div>
+          </div>
+
+          <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:400,color:textMuted,lineHeight:1.6,marginBottom:16}}>{item.desc}</div>
+
+          {/* Cert lifecycle */}
+          {expiry&&(
+            <div style={{background:darkMode?"rgba(255,255,255,0.03)":"rgba(0,0,0,0.03)",border:`1px solid ${isExpired?"#f87171":(isExpiringSoon?"#f5c842":"rgba(255,255,255,0.08)")}`,borderRadius:R.md,padding:"10px 14px",marginBottom:12}}>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:2,marginBottom:4}}>CERT LIFECYCLE · {expiry}yr validity</div>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <span style={{fontFamily:"'IBM Plex Sans'",fontSize:13,fontWeight:600,color:textMain}}>
+                  {isExpired?"⛔ EXPIRED":"Renewal required every "+expiry+" years"}
+                </span>
+                {expiryDate
+                  ?<span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:isExpired?"#f87171":(isExpiringSoon?"#f5c842":phaseColor)}}>
+                    Due {expiryDate.toLocaleDateString("en-US",{month:"short",year:"numeric"})} {isExpired?"⛔":isExpiringSoon?"⚠":"✓"}
+                  </span>
+                  :<span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:textMuted}}>mark done to track</span>}
+              </div>
+            </div>
+          )}
+
+          {/* Completed stamp */}
+          {completedDate&&(
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:"#34d399",letterSpacing:1,marginBottom:12}}>
+              ✓ COMPLETED {new Date(completedDate).toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric",year:"numeric"}).toUpperCase()}
+            </div>
+          )}
+
+          {/* Resource link */}
+          {resource&&(
+            <a href={resource} target="_blank" rel="noopener" style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",background:darkMode?"rgba(245,200,66,0.05)":"rgba(0,100,180,0.05)",border:`1px solid ${phaseColor}25`,borderRadius:R.md,textDecoration:"none",marginBottom:14,transition:"all 0.2s"}}>
+              <span style={{fontFamily:"'IBM Plex Mono'",fontSize:10,color:phaseColor,letterSpacing:1,flexShrink:0}}>→ FREE RESOURCE</span>
+              <span style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{resource.replace("https://","")}</span>
+            </a>
+          )}
+
+          {/* Lab hours logger */}
+          <div style={{marginBottom:14}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:2,marginBottom:6}}>LAB TIME LOGGED</div>
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              <button onClick={()=>setLabH(h=>Math.max(0,h-1))} style={{width:32,height:36,borderRadius:R.sm,border:`1px solid ${darkMode?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.15)"}`,background:"none",color:textMain,fontSize:16,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>−</button>
+              <input type="number" min="0" max="9999" value={labH} onChange={e=>setLabH(parseInt(e.target.value)||0)}
+                style={{width:72,background:darkMode?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)",border:`1px solid ${darkMode?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.15)"}`,borderRadius:R.md,padding:"8px 10px",color:textMain,fontFamily:"'IBM Plex Mono'",fontSize:16,fontWeight:700,outline:"none",textAlign:"center"}}/>
+              <button onClick={()=>setLabH(h=>h+1)} style={{width:32,height:36,borderRadius:R.sm,border:`1px solid ${darkMode?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.15)"}`,background:"none",color:textMain,fontSize:16,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>+</button>
+              <div style={{flex:1}}>
+                <div style={{fontFamily:"'IBM Plex Sans'",fontSize:12,color:textMuted}}>hours logged</div>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:textMuted,marginTop:2}}>est. {item.hours}h · tap LOG on any item</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Notes */}
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:2,marginBottom:6}}>NOTES / LOG</div>
+          <textarea value={note} onChange={e=>setNote(e.target.value)}
+            placeholder="Add notes, scores, resources, what you learned..."
+            style={{width:"100%",minHeight:88,background:darkMode?"rgba(255,255,255,0.03)":"rgba(0,0,0,0.03)",border:`1px solid ${darkMode?"rgba(255,255,255,0.1)":"rgba(0,0,0,0.12)"}`,borderRadius:R.md,padding:"10px 12px",color:textMain,fontSize:12,lineHeight:1.6,marginBottom:12}}/>
+
+          <button onClick={()=>{onSaveNote(note);onSaveLabHours(Math.max(0,labH));onClose();}} style={{width:"100%",padding:"11px",background:`${phaseColor}18`,border:`1px solid ${phaseColor}40`,borderRadius:R.md,color:phaseColor,fontFamily:"'IBM Plex Mono'",fontSize:10,letterSpacing:2,cursor:"pointer",transition:"all 0.2s"}}>
+            SAVE
+          </button>
+        </div>
+      </div>
     );
   }
 
-  function Stars({ count, color, darkMode }) {
-    return (
-      <span style={{ display: "flex", gap: 2, alignItems: "center" }}>
-        {[1,2,3].map(i => (
-          <span key={i} style={{
-            width: 6, height: 6, borderRadius: "50%",
-            background: i <= count ? color : (darkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.15)"),
-            display: "inline-block",
-            boxShadow: i <= count ? `0 0 4px ${color}` : "none",
-            transition: "all 0.2s",
-          }} />
-        ))}
-      </span>
-    );
-  }
-
-  function ProgressRing({ pct, color, size = 38, darkMode }) {
-    const r = (size - 5) / 2;
-    const circ = 2 * Math.PI * r;
-    const dash = (pct / 100) * circ;
-    return (
-      <svg width={size} height={size} style={{ transform: "rotate(-90deg)", flexShrink: 0 }}>
-        <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={darkMode ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.12)"} strokeWidth="3" />
-        <circle cx={size/2} cy={size/2} r={r} fill="none"
-          stroke={pct === 100 ? "#22c55e" : color}
-          strokeWidth="3" strokeDasharray={`${dash} ${circ}`}
-          strokeLinecap="round"
-          style={{
-            transition: "stroke-dasharray 0.4s ease",
-            filter: `drop-shadow(0 0 4px ${pct === 100 ? "#22c55e" : color})`
-          }}
-        />
-      </svg>
-    );
-  }
-
-  function XPPopup({ xp, color }) {
-    return (
-      <div style={{
-        position: "fixed", top: "50%", left: "50%",
-        transform: "translate(-50%,-50%)",
-        fontFamily: "'Orbitron'", fontSize: 22, fontWeight: 900,
-        color: color, textShadow: `0 0 20px ${color}`,
-        animation: "xpPop 1s ease forwards",
-        pointerEvents: "none", zIndex: 9999,
-        letterSpacing: 2,
-      }}>+{xp} XP</div>
-    );
-  }
-
-  function App() {
-    const [openPhase, setOpenPhase] = useState("foundation");
-    const [darkMode, setDarkMode] = useState(true);
-    const [completed, setCompleted] = useState(() => {
-      try {
-        const s = localStorage.getItem(STORAGE_KEY);
-        return s ? new Set(JSON.parse(s)) : new Set();
-      } catch { return new Set(); }
+  // ── RESUME EXPORT ────────────────────────────────────────
+  function buildResume(completed,notes,completedDates,labHours){
+    const lines=["CYBERSECURITY SKILLS — COMPLETED ROADMAP","=".repeat(48),""];
+    PHASES.forEach(phase=>{
+      const done=phase.items.filter((_,i)=>completed.has(`${phase.id}-${i}`));
+      if(!done.length)return;
+      lines.push(`${phase.label.toUpperCase()}: ${phase.sublabel.toUpperCase()} (${done.length}/${phase.items.length})`);
+      lines.push("-".repeat(40));
+      done.forEach(item=>{
+        const idx=phase.items.indexOf(item);
+        const key=`${phase.id}-${idx}`;
+        const date=completedDates[key]?new Date(completedDates[key]).toLocaleDateString("en-US",{month:"short",year:"numeric"}):"";
+        const lh=labHours[key]||0;
+        lines.push(`• ${item.title}${date?` — completed ${date}`:""} [${item.tag}]${lh?` · ${lh}h lab time`:""}`);
+        if(notes[key]&&notes[key].trim())lines.push(`  Note: ${notes[key].trim()}`);
+      });
+      lines.push("");
     });
-    const [justSaved, setJustSaved] = useState(false);
-    const [xpPopup, setXpPopup] = useState(null);
-    const [prevLevel, setPrevLevel] = useState(1);
-    const [showLevelUp, setShowLevelUp] = useState(false);
+    const totalLab=Object.values(labHours).reduce((a,b)=>a+b,0);
+    if(totalLab>0)lines.push(`TOTAL LAB TIME LOGGED: ${totalLab} hours`);
+    return lines.join("\n");
+  }
 
-    // Apply dark/light mode
-    useEffect(() => {
-      document.body.classList.toggle("light", !darkMode);
-    }, [darkMode]);
+  // ── TIME ESTIMATE ────────────────────────────────────────
+  function getTimeEstimate(completed,completedDates){
+    if(completed.size<3)return null;
+    const dates=Object.values(completedDates).map(d=>new Date(d)).sort((a,b)=>a-b);
+    if(dates.length<2)return null;
+    const span=(dates[dates.length-1]-dates[0])/(1000*60*60*24);
+    const rate=completed.size/Math.max(span,1);
+    const totalItems=PHASES.reduce((a,p)=>a+p.items.length,0);
+    const remaining=totalItems-completed.size;
+    if(rate<=0||remaining<=0)return null;
+    const daysLeft=Math.round(remaining/rate);
+    if(daysLeft>365*3)return null;
+    const target=new Date();target.setDate(target.getDate()+daysLeft);
+    return{daysLeft,target:target.toLocaleDateString("en-US",{month:"long",year:"numeric"}),ratePerWeek:(rate*7).toFixed(1)};
+  }
 
-    useEffect(() => {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...completed])); } catch {}
-      setJustSaved(true);
-      const t = setTimeout(() => setJustSaved(false), 1800);
-      return () => clearTimeout(t);
-    }, [completed]);
 
-    // Calculate total XP
-    const totalXP = [...completed].reduce((sum, key) => {
-      const [phaseId, idx] = key.split("-");
-      const phase = PHASES.find(p => p.id === phaseId);
-      if (!phase) return sum;
-      const item = phase.items[parseInt(idx)];
-      if (!item) return sum;
-      return sum + (XP_VALUES[item.tag] || 0);
-    }, 0);
+  // ── SEGMENTED BAR ──────────────────────────────────────
+  function SegBar({pct,color,segments=10,height=8,complete=false,light=false}){
+    const filled=Math.round((pct/100)*segments);
+    const emptyColor=light?"rgba(0,0,0,0.10)":"rgba(255,255,255,0.08)";
+    const doneColor=complete?"#34d399":color;
+    return <div style={{display:"flex",gap:3,flex:1}}>
+      {Array.from({length:segments},(_,i)=>(
+        <div key={i} style={{flex:1,height,borderRadius:4,background:i<filled?doneColor:emptyColor,transition:`background 0.3s ${i*0.02}s`}}/>
+      ))}
+    </div>;
+  }
 
-    const levelInfo = getLevelInfo(totalXP);
-    const totalItems = PHASES.reduce((a, p) => a + p.items.length, 0);
-    const doneCount = completed.size;
-    const progress = Math.round((doneCount / totalItems) * 100);
-    const activeColor = progress >= 75 ? "#a855f7" : progress >= 50 ? "#0ea5e9" : progress >= 25 ? "#ff3c3c" : "#00d4ff";
+  // ── MAIN APP ─────────────────────────────────────────────
+  function App(){
+    const [openPhase,setOpenPhase]=useState("foundation");
+    const [searchQ,setSearchQ]=useState("");
+    const [showSearch,setShowSearch]=useState(false);
+    const [flashItem,setFlashItem]=useState(null);
+    const [activeTag,setActiveTag]=useState("all");
+    const [customItems,setCustomItems]=useState(()=>{try{return JSON.parse(localStorage.getItem("cyber-custom")||"[]");}catch{return [];}});
+    const [showCustomPhase,setShowCustomPhase]=useState(false);
+    const [customInput,setCustomInput]=useState("");
+    const [editingCustom,setEditingCustom]=useState(null);
+    const [darkMode,setDarkMode]=useState(true);
+    const [activeRole,setActiveRole]=useState("all");
+    const [modalItem,setModalItem]=useState(null);
+    const [showResumeModal,setShowResumeModal]=useState(false);
+    const [showShareModal,setShowShareModal]=useState(false);
+    const [milestone,setMilestone]=useState(null);
+    const [phaseAchievement,setPhaseAchievement]=useState(null);
+    const [seenPhases,setSeenPhases]=useState(()=>{try{return new Set(JSON.parse(localStorage.getItem("cyber-seen-phases")||"[]"));}catch{return new Set();}});
+    const [seenMilestones,setSeenMilestones]=useState(()=>{try{return new Set(JSON.parse(localStorage.getItem("cyber-milestones")||"[]"));}catch{return new Set();}});
+    const [weeklyGoal,setWeeklyGoal]=useState(()=>{try{return parseInt(localStorage.getItem("cyber-weekly-goal")||"3");}catch{return 3;}});
+    const [editingGoal,setEditingGoal]=useState(false);
+    const [priorityItems,setPriorityItems]=useState(()=>{try{return new Set(JSON.parse(localStorage.getItem("cyber-priority")||"[]"));}catch{return new Set();}});
+    const [notifAsked,setNotifAsked]=useState(()=>!!localStorage.getItem("cyber-notif-asked"));
 
-    // Total estimated hours
-    const totalHours = PHASES.reduce((sum, p) => sum + p.items.reduce((s, i) => s + i.hours, 0), 0);
-    const doneHours = [...completed].reduce((sum, key) => {
-      const [phaseId, idx] = key.split("-");
-      const phase = PHASES.find(p => p.id === phaseId);
-      if (!phase) return sum;
-      const item = phase.items[parseInt(idx)];
-      return sum + (item ? item.hours : 0);
-    }, 0);
+    const [completed,setCompleted]=useState(()=>{try{const s=localStorage.getItem(STORAGE_KEY);const d=s?JSON.parse(s):{};return new Set(d.completed||[]);}catch{return new Set();}});
+    const [notes,setNotes]=useState(()=>{try{const s=localStorage.getItem(STORAGE_KEY);const d=s?JSON.parse(s):{};return d.notes||{};}catch{return{};}});
+    const [completedDates,setCompletedDates]=useState(()=>{try{const s=localStorage.getItem(STORAGE_KEY);const d=s?JSON.parse(s):{};return d.dates||{};}catch{return{};}});
+    const [labHours,setLabHours]=useState(()=>{try{const s=localStorage.getItem(STORAGE_KEY);const d=s?JSON.parse(s):{};return d.labHours||{};}catch{return{};}});
+    const [streak,setStreak]=useState(()=>{try{const s=localStorage.getItem(STORAGE_KEY);const d=s?JSON.parse(s):{};return{count:d.streakCount||0,lastDate:d.lastDate||null};}catch{return{count:0,lastDate:null};}});
+    const [justSaved,setJustSaved]=useState(false);
+    const [xpPopup,setXpPopup]=useState(null);
+    const [showLevelUp,setShowLevelUp]=useState(false);
+    const [prevLevel,setPrevLevel]=useState(1);
 
-    const toggle = (phaseId, idx) => {
-      const key = `${phaseId}-${idx}`;
-      const phase = PHASES.find(p => p.id === phaseId);
-      const item = phase?.items[idx];
-      const xpVal = XP_VALUES[item?.tag] || 0;
-      const phaseColor = phase?.color || "#00d4ff";
+    useEffect(()=>{document.body.classList.toggle("light",!darkMode);},[darkMode]);
 
-      setCompleted(prev => {
-        const next = new Set(prev);
-        if (next.has(key)) {
-          next.delete(key);
-        } else {
-          next.add(key);
-          // Show XP popup
-          setXpPopup({ xp: xpVal, color: phaseColor, id: Date.now() });
-          setTimeout(() => setXpPopup(null), 1000);
-        }
+    // Save
+    useEffect(()=>{
+      try{localStorage.setItem(STORAGE_KEY,JSON.stringify({completed:[...completed],notes,dates:completedDates,labHours,streakCount:streak.count,lastDate:streak.lastDate}));}catch{}
+      setJustSaved(true);const t=setTimeout(()=>setJustSaved(false),1800);return()=>clearTimeout(t);
+    },[completed,notes,completedDates,labHours,streak]);
+
+    useEffect(()=>{try{localStorage.setItem("cyber-weekly-goal",weeklyGoal);}catch{};},[weeklyGoal]);
+    useEffect(()=>{try{localStorage.setItem("cyber-priority",JSON.stringify([...priorityItems]));}catch{};},[priorityItems]);
+    useEffect(()=>{try{localStorage.setItem("cyber-custom",JSON.stringify(customItems));}catch{};},[customItems]);
+    useEffect(()=>{try{localStorage.setItem("cyber-milestones",JSON.stringify([...seenMilestones]));}catch{};},[seenMilestones]);
+
+    // XP & progress
+    const totalXP=[...completed].reduce((sum,key)=>{const[pid,idx]=key.split("-");const phase=PHASES.find(p=>p.id===pid);if(!phase)return sum;const item=phase.items[parseInt(idx)];return sum+(item?(XP_VALUES[item.tag]||0):0);},0);
+    const levelInfo=getLevelInfo(totalXP);
+    const totalItems=PHASES.reduce((a,p)=>a+p.items.length,0);
+    const doneCount=completed.size;
+    const progress=Math.round((doneCount/totalItems)*100);
+    const activeColor=progress>=75?"#a78bfa":progress>=50?"#4a9eff":progress>=25?"#ff3c3c":"#f5c842";
+    const totalHours=PHASES.reduce((s,p)=>s+p.items.reduce((ss,i)=>ss+i.hours,0),0);
+    const doneHours=[...completed].reduce((sum,key)=>{const[pid,idx]=key.split("-");const phase=PHASES.find(p=>p.id===pid);if(!phase)return sum;const item=phase.items[parseInt(idx)];return sum+(item?item.hours:0);},0);
+    const totalLabLogged=Object.values(labHours).reduce((a,b)=>a+b,0);
+
+    // Weekly goal
+    const weekStart=new Date();weekStart.setDate(weekStart.getDate()-weekStart.getDay());weekStart.setHours(0,0,0,0);
+    const weekDone=Object.values(completedDates).filter(d=>new Date(d)>=weekStart).length;
+
+    // Time estimate
+    const timeEst=getTimeEstimate(completed,completedDates);
+
+    // Cert expiry warnings
+    const expiryWarnings=[];
+    PHASES.forEach(phase=>phase.items.forEach((item,idx)=>{
+      const key=`${phase.id}-${idx}`;
+      if(!completed.has(key))return;
+      const expiry=CERT_EXPIRY[item.title];
+      if(!expiry||!completedDates[key])return;
+      const d=new Date(completedDates[key]);d.setFullYear(d.getFullYear()+expiry);
+      const monthsLeft=Math.round((d-new Date())/(1000*60*60*24*30));
+      if(monthsLeft<=6)expiryWarnings.push({title:item.title,monthsLeft,color:monthsLeft<=0?"#f87171":(monthsLeft<=2?"#f87171":"#f5c842")});
+    }));
+
+    // Toggle
+    const toggle=(phaseId,idx)=>{
+      const key=`${phaseId}-${idx}`;
+      const phase=PHASES.find(p=>p.id===phaseId);
+      const item=phase?.items[idx];
+      const xpVal=XP_VALUES[item?.tag]||0;
+      const phaseColor=phase?.color||"#f5c842";
+      const isAdding=!completed.has(key);
+
+      // Update completed set
+      setCompleted(prev=>{
+        const next=new Set(prev);
+        isAdding?next.add(key):next.delete(key);
         return next;
       });
+
+      // All side effects outside the updater
+      if(isAdding){
+        setCompletedDates(d=>({...d,[key]:new Date().toISOString()}));
+        setXpPopup({xp:xpVal,color:phaseColor,id:Date.now()});
+        setTimeout(()=>setXpPopup(null),1000);
+        setFlashItem(key);
+        setTimeout(()=>setFlashItem(null),500);
+        setStreak(s=>{
+          const today=new Date().toDateString();
+          const lastD=s.lastDate?new Date(s.lastDate).toDateString():null;
+          const yesterday=new Date(Date.now()-86400000).toDateString();
+          if(lastD===today)return s;
+          if(lastD===yesterday)return{count:s.count+1,lastDate:new Date().toISOString()};
+          return{count:1,lastDate:new Date().toISOString()};
+        });
+      }else{
+        setCompletedDates(d=>{const nd={...d};delete nd[key];return nd;});
+      }
     };
 
-    // Check for level up
-    useEffect(() => {
-      if (levelInfo.current.level > prevLevel) {
-        setShowLevelUp(true);
-        setPrevLevel(levelInfo.current.level);
-        setTimeout(() => setShowLevelUp(false), 3000);
+    // Milestone check
+    useEffect(()=>{
+      const m=MILESTONES.find(m=>progress>=m.pct&&!seenMilestones.has(m.pct));
+      if(m){setMilestone(m);setSeenMilestones(s=>new Set([...s,m.pct]));}
+    },[progress]);
+
+    // Phase completion check
+    useEffect(()=>{
+      const completedPhase=PHASES.find(phase=>{
+        if(seenPhases.has(phase.id))return false;
+        const total=phase.items.length;
+        if(total===0)return false;
+        const done=phase.items.filter((_,i)=>completed.has(`${phase.id}-${i}`)).length;
+        return done===total;
+      });
+      if(completedPhase&&!phaseAchievement){
+        setPhaseAchievement(completedPhase);
+        setSeenPhases(s=>{const n=new Set([...s,completedPhase.id]);localStorage.setItem("cyber-seen-phases",JSON.stringify([...n]));return n;});
       }
-    }, [levelInfo.current.level]);
+    },[completed]);
 
-    const bg = darkMode ? "#03060f" : "#ffffff";
-    const cardBg = darkMode ? "rgba(255,255,255,0.015)" : "#ffffff";
-    const textMuted = darkMode ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.65)";
-    const textMain = darkMode ? "#e8f0ff" : "#0a0f1e";
-    const borderMuted = darkMode ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.18)";
-    const borderSub = darkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.10)";
+    // Level up check
+    useEffect(()=>{
+      if(levelInfo.current.level>prevLevel){setShowLevelUp(true);setPrevLevel(levelInfo.current.level);setTimeout(()=>setShowLevelUp(false),3000);}
+    },[levelInfo.current.level]);
 
-    return (
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 540, margin: "0 auto", padding: "0 0 80px" }}>
+    // Daily reminder
+    useEffect(()=>{
+      if(notifAsked)return;
+      if(!("Notification" in window))return;
+      // Ask after 3 completions
+      if(doneCount>=3&&Notification.permission==="default"){
+        setNotifAsked(true);
+        localStorage.setItem("cyber-notif-asked","1");
+        setTimeout(()=>{
+          Notification.requestPermission().then(p=>{
+            if(p==="granted"){
+              // Schedule daily check via a simple message
+              new Notification("Cyber Checkmark",{body:"Keep the streak going — check off something today 🔥",icon:"/icon-192.png"});
+            }
+          });
+        },2000);
+      }
+    },[doneCount]);
 
-        {/* XP Popup */}
-        {xpPopup && <XPPopup key={xpPopup.id} xp={xpPopup.xp} color={xpPopup.color} />}
+    // URL share
+    const getShareURL=()=>{const data={completed:[...completed],notes,dates:completedDates};const enc=btoa(encodeURIComponent(JSON.stringify(data)));return`${window.location.href.split("?")[0]}?state=${enc}`;};
+    useEffect(()=>{try{const p=new URLSearchParams(window.location.search);const s=p.get("state");if(!s)return;const data=JSON.parse(decodeURIComponent(atob(s)));if(data.completed)setCompleted(new Set(data.completed));if(data.notes)setNotes(data.notes);if(data.dates)setCompletedDates(data.dates);}catch{};},[]);
 
-        {/* Level Up Banner */}
-        {showLevelUp && (
-          <div style={{
-            position: "fixed", top: 20, left: "50%", transform: "translateX(-50%)",
-            background: "linear-gradient(135deg, rgba(168,85,247,0.95), rgba(0,212,255,0.95))",
-            padding: "12px 28px", borderRadius: 40, zIndex: 9998,
-            fontFamily: "'Orbitron'", fontSize: 14, fontWeight: 900,
-            color: "#fff", letterSpacing: 2,
-            animation: "levelUp 0.4s ease",
-            boxShadow: "0 0 40px rgba(168,85,247,0.6)",
-          }}>
+    const bg=darkMode?"#111111":"#f5f5f0";
+    const textMuted=darkMode?"rgba(255,255,255,0.38)":"rgba(0,0,0,0.55)";
+    const textMain=darkMode?"#e0e0e0":"#111111";
+    const borderMuted=darkMode?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.10)";
+    const borderSub=darkMode?"rgba(255,255,255,0.05)":"rgba(0,0,0,0.07)";
+    const cardBg=darkMode?"#1a1a1a":"#ffffff";
+
+    // Role filter — priority mode shows only starred items
+    const activeRoleObj=JOB_ROLES.find(r=>r.id===activeRole);
+    const roleFilter=activeRole==="focus"
+      ?(item,phaseId,idx)=>priorityItems.has(`${phaseId}-${idx}`)
+      :(activeRoleObj?.filter||(()=>true));
+
+    return(
+      <div style={{position:"relative",zIndex:1,maxWidth:560,margin:"0 auto",padding:"0 0 calc(80px + env(safe-area-inset-bottom, 0px))"}}>
+
+        {xpPopup&&<XPPopup key={xpPopup.id} xp={xpPopup.xp} color={xpPopup.color}/>}
+
+        {milestone&&<MilestoneBanner milestone={milestone} onClose={()=>setMilestone(null)}/>}
+
+        {phaseAchievement&&<PhaseAchievement phase={phaseAchievement} onClose={()=>setPhaseAchievement(null)}/>}
+
+        {showLevelUp&&(
+          <div style={{position:"fixed",top:20,left:"50%",transform:"translateX(-50%)",background:"linear-gradient(135deg,rgba(168,85,247,0.95),rgba(245,200,66,0.95))",padding:"12px 28px",borderRadius:R.pill,zIndex:9998,fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:900,color:"#fff",letterSpacing:2,animation:"levelUp 0.4s ease",boxShadow:"0 0 40px rgba(168,85,247,0.6)"}}>
             ⬆ LEVEL UP — {levelInfo.current.title.toUpperCase()}
           </div>
         )}
 
-        {/* Scanline */}
-        {darkMode && (
-          <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 999, overflow: "hidden" }}>
-            <div style={{
-              position: "absolute", left: 0, right: 0, height: "3px",
-              background: "linear-gradient(transparent 0%, rgba(0,212,255,0.05) 50%, transparent 100%)",
-              animation: "scanline 7s linear infinite",
-            }} />
+        {/* ══ STICKY STATS BAR — fixed ══ */}
+        <div style={{position:"fixed",top:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:560,zIndex:200,background:darkMode?"rgba(17,17,17,0.97)":"rgba(248,248,244,0.97)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",borderBottom:`1px solid ${borderMuted}`,padding:"8px 16px",display:"flex",alignItems:"center"}}>
+          <div style={{display:"flex",alignItems:"center",gap:6,flex:1}}>
+            <span style={{width:7,height:7,borderRadius:"50%",background:"#f5c842",display:"inline-block",flexShrink:0}}/>
+            <span className="sticky-bar-title" style={{fontFamily:"'IBM Plex Sans'",fontSize:12,fontWeight:700,color:darkMode?"#e0e0e0":"#111"}}>CYBER CHECKMARK</span>
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:16}}>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:16,fontWeight:900,color:"#f5c842",lineHeight:1}}>{progress}<span style={{fontSize:10,fontWeight:400,color:textMuted}}>%</span></div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:6,color:textMuted,letterSpacing:1}}>DONE</div>
+            </div>
+            <div style={{width:1,height:28,background:borderMuted}}/>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:16,fontWeight:900,color:textMain,lineHeight:1}}>{doneCount}<span style={{fontSize:10,fontWeight:400,color:textMuted}}>/{totalItems}</span></div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:6,color:textMuted,letterSpacing:1}}>ITEMS</div>
+            </div>
+            <div style={{width:1,height:28,background:borderMuted}}/>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:16,fontWeight:900,color:levelInfo.current.color,lineHeight:1}}>{totalXP.toLocaleString()}</div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:6,color:textMuted,letterSpacing:1}}>{levelInfo.current.title.toUpperCase()}</div>
+            </div>
+            {streak.count>0&&<>
+              <div style={{width:1,height:28,background:borderMuted}}/>
+              <div style={{textAlign:"center"}}>
+                <div style={{fontFamily:"'IBM Plex Sans'",fontSize:16,fontWeight:900,color:"#f5c842",lineHeight:1}}>🔥{streak.count}</div>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:6,color:textMuted,letterSpacing:1}}>STREAK</div>
+              </div>
+            </>}
+          </div>
+        </div>
+        <div style={{height:46}}/>
+
+        {/* Modals */}
+        {modalItem&&<DetailModal
+          item={modalItem.item} phaseColor={modalItem.phaseColor}
+          phaseId={modalItem.phaseId} idx={modalItem.idx}
+          onClose={()=>setModalItem(null)}
+          noteVal={notes[`${modalItem.phaseId}-${modalItem.idx}`]||""}
+          onSaveNote={n=>setNotes(prev=>({...prev,[`${modalItem.phaseId}-${modalItem.idx}`]:n}))}
+          completedDate={completedDates[`${modalItem.phaseId}-${modalItem.idx}`]}
+          darkMode={darkMode}
+          isPriority={priorityItems.has(`${modalItem.phaseId}-${modalItem.idx}`)}
+          onTogglePriority={()=>setPriorityItems(prev=>{const k=`${modalItem.phaseId}-${modalItem.idx}`;const n=new Set(prev);n.has(k)?n.delete(k):n.add(k);return n;})}
+          labHoursVal={labHours[`${modalItem.phaseId}-${modalItem.idx}`]||0}
+          onSaveLabHours={h=>setLabHours(prev=>({...prev,[`${modalItem.phaseId}-${modalItem.idx}`]:h}))}
+        />}
+
+        {showResumeModal&&(
+          <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setShowResumeModal(false)}>
+            <div className="modal-box">
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+                <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:700,color:"#f5c842",letterSpacing:2}}>RESUME EXPORT</div>
+                <button onClick={()=>setShowResumeModal(false)} style={{background:"none",border:"none",color:textMuted,cursor:"pointer",fontSize:20}}>×</button>
+              </div>
+              {totalLabLogged>0&&<div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:"#34d399",marginBottom:10,letterSpacing:1}}>✓ {totalLabLogged} total lab hours logged</div>}
+              <textarea readOnly value={buildResume(completed,notes,completedDates,labHours)}
+                style={{width:"100%",height:300,background:darkMode?"rgba(255,255,255,0.03)":"rgba(0,0,0,0.03)",border:`1px solid ${darkMode?"rgba(255,255,255,0.08)":"rgba(0,0,0,0.12)"}`,borderRadius:R.md,padding:"12px",color:textMain,fontSize:9,lineHeight:1.7,outline:"none"}}/>
+              <button onClick={()=>navigator.clipboard.writeText(buildResume(completed,notes,completedDates,labHours))} style={{width:"100%",marginTop:10,padding:"11px",background:"rgba(245,200,66,0.08)",border:"1px solid rgba(245,200,66,0.25)",borderRadius:R.md,color:"#f5c842",fontFamily:"'IBM Plex Mono'",fontSize:10,letterSpacing:2,cursor:"pointer"}}>
+                COPY TO CLIPBOARD
+              </button>
+            </div>
           </div>
         )}
 
-        {/* ══ HERO HEADER ══ */}
-        <div style={{
-          padding: "40px 22px 30px", marginBottom: 20,
-          position: "relative", animation: "fadeUp 0.5s ease both",
-        }}>
-          {/* Status bar */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
-            <div style={{
-              display: "flex", alignItems: "center", gap: 8,
-              fontFamily: "'Share Tech Mono'", fontSize: 10,
-              color: "#00d4ff", letterSpacing: 3,
-            }}>
-              <span style={{
-                width: 7, height: 7, borderRadius: "50%",
-                background: "#00d4ff", display: "inline-block",
-                animation: "pulseDot 2.5s infinite",
-              }} />
-              CYBER CHECKMARK
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              {/* Dark/Light Toggle */}
-              <button onClick={() => setDarkMode(d => !d)} style={{
-                background: darkMode ? "rgba(0,212,255,0.1)" : "rgba(0,212,255,0.08)",
-                border: `1px solid ${darkMode ? "rgba(0,212,255,0.3)" : "rgba(0,212,255,0.2)"}`,
-                borderRadius: 20, padding: "4px 10px",
-                cursor: "pointer", color: "#00d4ff",
-                fontFamily: "'Share Tech Mono'", fontSize: 10, letterSpacing: 1,
-                transition: "all 0.3s",
-              }}>
-                {darkMode ? "☀ LIGHT" : "◑ DARK"}
+        {showShareModal&&(
+          <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setShowShareModal(false)}>
+            <div className="modal-box">
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+                <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:700,color:"#f5c842",letterSpacing:2}}>SHARE PROGRESS</div>
+                <button onClick={()=>setShowShareModal(false)} style={{background:"none",border:"none",color:textMuted,cursor:"pointer",fontSize:20}}>×</button>
+              </div>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,color:textMuted,marginBottom:12,lineHeight:1.5}}>Share your exact progress state. Anyone with this link sees your completed items, notes, and dates.</div>
+              <input readOnly value={getShareURL()} style={{width:"100%",background:darkMode?"rgba(255,255,255,0.03)":"rgba(0,0,0,0.03)",border:"1px solid rgba(245,200,66,0.2)",borderRadius:R.md,padding:"10px 12px",color:"#f5c842",fontFamily:"'IBM Plex Mono'",fontSize:16,outline:"none",marginBottom:10}}/>
+              <button onClick={()=>navigator.clipboard.writeText(getShareURL())} style={{width:"100%",padding:"11px",background:"rgba(245,200,66,0.08)",border:"1px solid rgba(245,200,66,0.25)",borderRadius:R.md,color:"#f5c842",fontFamily:"'IBM Plex Mono'",fontSize:10,letterSpacing:2,cursor:"pointer"}}>
+                COPY LINK
               </button>
-              <div style={{
-                fontFamily: "'Share Tech Mono'", fontSize: 9,
-                color: justSaved ? "#22c55e" : (darkMode ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.55)"),
-                letterSpacing: 2, transition: "color 0.4s",
-              }}>
-                {justSaved ? "SAVED ✓" : "SYS:READY"}
-              </div>
             </div>
           </div>
+        )}
 
-          {/* BIG TITLE */}
-          <div style={{
-            fontFamily: "'Orbitron', monospace",
-            fontSize: "clamp(28px, 7vw, 38px)", fontWeight: 900,
-            letterSpacing: "0.05em", lineHeight: 1.05, marginBottom: 8,
-            background: darkMode
-              ? "linear-gradient(120deg, #ffffff 0%, #b8e8ff 40%, #00d4ff 70%, #0ea5e9 100%)"
-              : "none",
-            WebkitBackgroundClip: darkMode ? "text" : "unset",
-            WebkitTextFillColor: darkMode ? "transparent" : "#0a0f1e",
-            backgroundClip: darkMode ? "text" : "unset",
-            color: darkMode ? "unset" : "#0a0f1e",
-          }}>
-            CYBER CAREER<br/>ROADMAP
+        {darkMode&&(
+          <div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:999,overflow:"hidden"}}>
+            <div style={{position:"absolute",left:0,right:0,height:"3px",background:"linear-gradient(transparent 0%,rgba(245,200,66,0.05) 50%,transparent 100%)",animation:"scanline 7s linear infinite"}}/>
           </div>
+        )}
 
-          <div style={{
-            fontFamily: "'Rajdhani'", fontSize: 16, fontWeight: 700,
-            letterSpacing: 5, color: "#00d4ff", marginBottom: 6, textTransform: "uppercase",
-          }}>
-            Security Engineer Path
-          </div>
-
-          <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 10, color: textMuted, letterSpacing: 2 }}>
-            CYBER CHECKMARK // {new Date().getFullYear()}
-          </div>
-
-          <div style={{
-            position: "absolute", bottom: 0, left: 22, right: 22, height: 1,
-            background: "linear-gradient(90deg, transparent 0%, #00d4ff50 30%, #0ea5e940 70%, transparent 100%)",
-          }} />
-        </div>
-
-        {/* ══ XP / LEVEL CARD ══ */}
-        <div style={{
-          margin: "0 16px 12px",
-          background: darkMode
-            ? `linear-gradient(135deg, ${levelInfo.current.color}30 0%, rgba(1,3,10,1) 100%)`
-            : `linear-gradient(135deg, ${levelInfo.current.color}20 0%, #d8e4f0 100%)`,
-          border: `1px solid ${levelInfo.current.color}${darkMode ? "40" : "80"}`,
-          borderRadius: 12, padding: "16px 20px",
-          position: "relative", animation: "fadeUp 0.5s 0.05s ease both",
-          boxShadow: `0 0 24px ${levelInfo.current.color}15`,
-        }}>
-          {/* Corner brackets */}
-          {[["top","left"],["top","right"],["bottom","left"],["bottom","right"]].map(([v,h], i) => (
-            <div key={i} style={{
-              position: "absolute", [v]: -1, [h]: -1, width: 14, height: 14,
-              borderTop: v==="top" ? `2px solid ${levelInfo.current.color}` : "none",
-              borderBottom: v==="bottom" ? `2px solid ${levelInfo.current.color}` : "none",
-              borderLeft: h==="left" ? `2px solid ${levelInfo.current.color}` : "none",
-              borderRight: h==="right" ? `2px solid ${levelInfo.current.color}` : "none",
-              opacity: 0.7,
-            }} />
-          ))}
-
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            {/* Level badge */}
-            <div style={{
-              width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
-              background: `conic-gradient(${levelInfo.current.color} ${levelInfo.pct * 3.6}deg, rgba(255,255,255,0.05) 0deg)`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: `0 0 20px ${levelInfo.current.color}40`,
-              position: "relative",
-            }}>
-              <div style={{
-                width: 40, height: 40, borderRadius: "50%",
-                background: darkMode ? "#03060f" : "#ffffff",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontFamily: "'Orbitron'", fontSize: 16, fontWeight: 900,
-                color: levelInfo.current.color,
-              }}>{levelInfo.current.level}</div>
+        {/* ══ HERO ══ */}
+        <div style={{padding:"24px 16px 20px",position:"relative",animation:"fadeUp 0.5s ease both",textAlign:"center"}}>
+          {/* Brand row */}
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}} className="top-actions">
+            <div style={{display:"flex",alignItems:"center",gap:7}}>
             </div>
-
-            {/* Level info */}
-            <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                <div style={{
-                  fontFamily: "'Orbitron'", fontSize: 13, fontWeight: 700,
-                  color: levelInfo.current.color, letterSpacing: 1,
-                }}>{levelInfo.current.title.toUpperCase()}</div>
-                <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 9,
-                  color: darkMode ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.7)", letterSpacing: 1,
-                }}>{totalXP.toLocaleString()} XP</div>
-              </div>
-
-              {/* XP Bar */}
-              <div style={{
-                height: 5, background: darkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.10)", borderRadius: 3,
-                overflow: "hidden", marginBottom: 5,
-              }}>
-                <div style={{
-                  height: "100%", width: `${levelInfo.pct}%`,
-                  background: levelInfo.current.color,
-                  borderRadius: 3, transition: "width 0.5s ease",
-                  boxShadow: `0 0 8px ${levelInfo.current.color}`,
-                }} />
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 8, color: darkMode ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.65)", letterSpacing: 1 }}>
-                  {levelInfo.next ? `${levelInfo.xpInLevel}/${levelInfo.xpNeeded} XP to ${levelInfo.next.title}` : "MAX LEVEL"}
-                </div>
-                <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 8, color: darkMode ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.65)", letterSpacing: 1 }}>
-                  ~{doneHours}h / {totalHours}h
-                </div>
-              </div>
+            <div style={{display:"flex",alignItems:"center",gap:6}}>
+              <button onClick={()=>setShowSearch(s=>!s)} style={{background:showSearch?"rgba(245,200,66,0.12)":"transparent",border:"2px solid rgba(245,200,66,0.2)",borderRadius:999,padding:"5px 11px",cursor:"pointer",color:"#f5c842",fontFamily:"'IBM Plex Mono'",fontSize:8,letterSpacing:1}}>⌕</button>
+              <button onClick={()=>setShowShareModal(true)} style={{background:"transparent",border:"2px solid rgba(245,200,66,0.2)",borderRadius:999,padding:"5px 11px",cursor:"pointer",color:"#f5c842",fontFamily:"'IBM Plex Mono'",fontSize:8,letterSpacing:1}}>⇪</button>
+              <button onClick={()=>setShowResumeModal(true)} style={{background:"transparent",border:"2px solid rgba(52,211,153,0.2)",borderRadius:999,padding:"5px 11px",cursor:"pointer",color:"#34d399",fontFamily:"'IBM Plex Mono'",fontSize:8,letterSpacing:1}}>↓</button>
+              <button onClick={()=>setDarkMode(d=>!d)} style={{background:"none",border:"none",cursor:"pointer",padding:"4px 6px",display:"flex",alignItems:"center",gap:5}}>
+                <span style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:1}}>{darkMode?"☀":"☾"}</span>
+                <span style={{width:30,height:17,borderRadius:999,background:darkMode?"#f5c842":"#d0d0d0",position:"relative",display:"inline-block",transition:"background 0.3s",flexShrink:0}}>
+                  <span style={{position:"absolute",top:2,left:darkMode?11:2,width:10,height:10,borderRadius:"50%",background:darkMode?"#111":"#fff",transition:"left 0.2s ease",display:"block"}}/>
+                </span>
+              </button>
+              <span style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:justSaved?"#34d399":"transparent",letterSpacing:1,transition:"color 0.4s"}}>{justSaved?"✓":""}</span>
             </div>
+          </div>
+          {/* Centered title */}
+
+          <div className="hero-title" style={{fontFamily:"'IBM Plex Sans'",fontSize:"clamp(30px,7vw,46px)",fontWeight:900,letterSpacing:"0.04em",lineHeight:1,marginBottom:10}}>
+            <span style={{color:darkMode?"#ffffff":"#111111"}}>CYBER </span><span style={{color:"#f5c842"}}>CHECKMARK</span>
+          </div>
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:3,marginBottom:20}}>{levelInfo.current.title.toUpperCase()} → PHANTOM · {totalItems} SKILLS · 5 PHASES</div>
+          {/* Stat row */}
+          <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:20,marginBottom:16}}>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:26,fontWeight:900,color:"#f5c842",lineHeight:1}}>{progress}<span style={{fontSize:13,color:textMuted,fontWeight:400}}>%</span></div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginTop:2}}>DONE</div>
+            </div>
+            <div style={{width:1,height:32,background:borderMuted}}/>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:26,fontWeight:900,color:textMain,lineHeight:1}}>{doneCount}<span style={{fontSize:13,color:textMuted,fontWeight:400}}>/{totalItems}</span></div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginTop:2}}>ITEMS</div>
+            </div>
+            <div style={{width:1,height:32,background:borderMuted}}/>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:26,fontWeight:900,color:levelInfo.current.color,lineHeight:1}}>{totalXP.toLocaleString()}</div>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginTop:2}}>XP</div>
+            </div>
+            {streak.count>0&&<>
+              <div style={{width:1,height:32,background:borderMuted}}/>
+              <div style={{textAlign:"center"}}>
+                <div style={{fontFamily:"'IBM Plex Sans'",fontSize:26,fontWeight:900,color:"#f5c842",lineHeight:1}}>🔥{streak.count}</div>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginTop:2}}>STREAK</div>
+              </div>
+            </>}
+          </div>
+          {/* Progress bar */}
+          <div style={{padding:"0 16px"}}>
+            <SegBar pct={progress} color="#f5c842" segments={20} height={6} complete={progress===100} light={!darkMode}/>
           </div>
         </div>
 
-        {/* ══ PROGRESS DASHBOARD ══ */}
-        <div style={{
-          margin: "0 16px 16px",
-          background: darkMode
-            ? "linear-gradient(135deg, rgba(0,212,255,0.15) 0%, rgba(1,3,10,1) 100%)"
-            : "linear-gradient(135deg, rgba(0,150,200,0.12) 0%, #c8d8ec 100%)",
-          border: darkMode ? "1px solid rgba(0,212,255,0.2)" : "1px solid rgba(0,100,180,0.35)",
-          borderRadius: 12, padding: "20px 20px 16px",
-          position: "relative", animation: "fadeUp 0.5s 0.08s ease both",
-        }}>
-          {[["top","left"],["top","right"],["bottom","left"],["bottom","right"]].map(([v,h], i) => (
-            <div key={i} style={{
-              position: "absolute", [v]: -1, [h]: -1, width: 16, height: 16,
-              borderTop: v==="top" ? "2px solid #00d4ff" : "none",
-              borderBottom: v==="bottom" ? "2px solid #00d4ff" : "none",
-              borderLeft: h==="left" ? "2px solid #00d4ff" : "none",
-              borderRight: h==="right" ? "2px solid #00d4ff" : "none",
-              opacity: 0.6,
-            }} />
-          ))}
-
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 16 }}>
-            <div>
-              <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 9, color: darkMode ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.7)", letterSpacing: 3, marginBottom: 4 }}>
-                COMPLETION
+        {/* ══ SEARCH ══ */}
+        {showSearch&&(
+          <div style={{margin:"0 16px 12px",animation:"fadeSlide 0.2s ease"}}>
+            <input autoFocus type="text" placeholder="Search skills, certs, tools..." value={searchQ} onChange={e=>setSearchQ(e.target.value)}
+              style={{width:"100%",background:darkMode?"#1a1a1a":"#fff",border:"2px solid rgba(245,200,66,0.3)",borderRadius:12,padding:"10px 14px",color:textMain,fontFamily:"'IBM Plex Mono'",fontSize:12,outline:"none"}}/>
+            {searchQ&&(
+              <div style={{marginTop:6,background:darkMode?"#1a1a1a":"#fff",border:"2px solid rgba(245,200,66,0.15)",borderRadius:12,overflow:"hidden",maxHeight:240,overflowY:"auto"}}>
+                {PHASES.flatMap(ph=>ph.items.map((item,idx)=>({item,ph,idx}))).filter(({item})=>item.title.toLowerCase().includes(searchQ.toLowerCase())||item.desc.toLowerCase().includes(searchQ.toLowerCase())).slice(0,8).map(({item,ph,idx})=>(
+                  <div key={ph.id+idx} onClick={()=>{setOpenPhase(ph.id);setSearchQ("");setShowSearch(false);}}
+                    style={{padding:"10px 14px",borderBottom:`1px solid ${darkMode?"rgba(255,255,255,0.05)":"rgba(0,0,0,0.07)"}`,cursor:"pointer",display:"flex",alignItems:"center",gap:10}}>
+                    <span style={{width:8,height:8,borderRadius:"50%",background:ph.color,flexShrink:0}}/>
+                    <div style={{flex:1}}>
+                      <div style={{fontFamily:"'IBM Plex Sans'",fontSize:13,fontWeight:600,color:textMain}}>{item.title}</div>
+                      <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted}}>{ph.sublabel}</div>
+                    </div>
+                  </div>
+                ))}
+                {PHASES.flatMap(ph=>ph.items).filter(item=>item.title.toLowerCase().includes(searchQ.toLowerCase())||item.desc.toLowerCase().includes(searchQ.toLowerCase())).length===0&&(
+                  <div style={{padding:"14px",fontFamily:"'IBM Plex Mono'",fontSize:10,color:textMuted,textAlign:"center"}}>No results</div>
+                )}
               </div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 2, lineHeight: 1 }}>
-                <span style={{
-                  fontFamily: "'Orbitron'", fontSize: 42, fontWeight: 900,
-                  color: activeColor, textShadow: darkMode ? `0 0 30px ${activeColor}50` : `0 2px 8px ${activeColor}40`,
-                  transition: "color 0.5s, text-shadow 0.5s",
-                }}>{progress}</span>
-                <span style={{ fontFamily: "'Orbitron'", fontSize: 18, color: darkMode ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.4)", fontWeight: 700 }}>%</span>
-              </div>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 9, color: darkMode ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.7)", letterSpacing: 3, marginBottom: 4 }}>
-                ITEMS DONE
-              </div>
-              <div style={{ fontFamily: "'Orbitron'", fontSize: 24, fontWeight: 700, color: textMain, lineHeight: 1 }}>
-                {doneCount}
-                <span style={{ fontSize: 14, color: darkMode ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0.4)", fontWeight: 400 }}>/{totalItems}</span>
-              </div>
-            </div>
+            )}
           </div>
+        )}
 
-          <div style={{
-            height: 7, background: darkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.10)", borderRadius: 4,
-            overflow: "hidden", marginBottom: 18,
-          }}>
-            <div style={{
-              height: "100%", width: `${progress}%`,
-              background: `linear-gradient(90deg, #00d4ff 0%, ${activeColor} 100%)`,
-              borderRadius: 4, transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)",
-              boxShadow: `0 0 12px ${activeColor}70`,
-            }} />
+        {/* ══ BIG STAT ROW ══ */}
+        <div className="big-stat-row" style={{margin:"0 16px 10px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+          <div style={{background:darkMode?"#1a1a1a":"#fff",border:"2px solid rgba(245,200,66,0.2)",borderRadius:14,padding:"16px 14px"}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:6}}>PROGRESS</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:34,fontWeight:900,color:"#f5c842",lineHeight:1,marginBottom:8}}>{progress}<span style={{fontSize:14,color:textMuted,fontWeight:400}}>%</span></div>
+            <SegBar pct={progress} color="#f5c842" segments={10} height={6} complete={progress===100}/>
           </div>
+          <div style={{background:darkMode?"#1a1a1a":"#fff",border:darkMode?"2px solid rgba(255,255,255,0.06)":"2px solid rgba(0,0,0,0.10)",borderRadius:14,padding:"16px 14px"}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:6}}>ITEMS DONE</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:34,fontWeight:900,color:textMain,lineHeight:1,marginBottom:8}}>{doneCount}<span style={{fontSize:14,color:textMuted,fontWeight:400}}>/{totalItems}</span></div>
+            <SegBar pct={Math.round((doneCount/totalItems)*100)} color="#f5c842" segments={10} height={6} light={!darkMode}/>
+          </div>
+          <div style={{background:darkMode?"#1a1a1a":"#fff",border:`2px solid ${levelInfo.current.color}30`,borderRadius:14,padding:"16px 14px"}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:6}}>XP · {levelInfo.current.title.toUpperCase()}{streak.count>0?` · 🔥${streak.count}`:""}</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:34,fontWeight:900,color:levelInfo.current.color,lineHeight:1,marginBottom:8}}>{totalXP.toLocaleString()}</div>
+            <SegBar pct={levelInfo.pct} color={levelInfo.current.color} segments={10} height={6} light={!darkMode}/>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,marginTop:4}}>{levelInfo.next?`${levelInfo.xpInLevel}/${levelInfo.xpNeeded} → ${levelInfo.next.title}`:"MAX LEVEL"}</div>
+          </div>
+        </div>
 
-          <div style={{ display: "flex", gap: 8 }}>
-            {PHASES.map((p, pi) => {
-              const done = p.items.filter((_, i) => completed.has(`${p.id}-${i}`)).length;
-              const pct = Math.round((done / p.items.length) * 100);
-              const isActive = openPhase === p.id;
-              return (
-                <div key={p.id} onClick={() => setOpenPhase(p.id === openPhase ? null : p.id)}
-                  style={{
-                    flex: 1, cursor: "pointer", padding: "10px 4px 8px",
-                    borderRadius: 8,
-                    background: isActive ? `${p.color}${darkMode ? "12" : "18"}` : (darkMode ? "rgba(255,255,255,0.02)" : "rgba(0,0,0,0.04)"),
-                    border: `1px solid ${isActive ? p.color + "50" : borderMuted}`,
-                    transition: "all 0.25s",
-                    display: "flex", flexDirection: "column", alignItems: "center", gap: 5,
-                    boxShadow: isActive ? `0 0 14px ${p.color}20` : "none",
-                  }}>
-                  <ProgressRing pct={pct} color={p.color} size={36} darkMode={darkMode} />
-                  <div style={{
-                    fontFamily: "'Share Tech Mono'", fontSize: 7,
-                    color: isActive ? p.color : textMuted,
-                    letterSpacing: 1, textAlign: "center", transition: "color 0.25s",
-                  }}>PH0{pi+1}</div>
-                </div>
+        {/* ══ PHASE GRID ══ */}
+        <div className="phase-grid" style={{margin:"0 16px 10px",display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8}}>
+          {PHASES.map((p,pi)=>{
+            const done=p.items.filter((_,i)=>completed.has(`${p.id}-${i}`)).length;
+            const pct=Math.round((done/p.items.length)*100);
+            const isAct=openPhase===p.id;
+            const allDone=done===p.items.length;
+            return(
+              <div key={p.id} onClick={()=>setOpenPhase(p.id===openPhase?null:p.id)} style={{cursor:"pointer",borderRadius:12,border:`2px solid ${allDone?"#34d399":(isAct?p.color:`${p.color}28`)}`,background:isAct?(darkMode?`${p.color}12`:`${p.color}08`):(darkMode?"#1a1a1a":"#fff"),padding:"12px 8px 10px",display:"flex",flexDirection:"column",alignItems:"center",gap:6,transition:"all 0.2s"}}>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,fontWeight:600,color:allDone?"#34d399":p.color,letterSpacing:1}}>PH0{pi+1}</div>
+                <div style={{fontFamily:"'IBM Plex Sans'",fontSize:9,fontWeight:700,color:allDone?"#34d399":(isAct?textMain:textMuted),textAlign:"center",lineHeight:1.2}}>{p.sublabel}</div>
+                <SegBar pct={pct} color={p.color} segments={5} height={5} complete={allDone} light={!darkMode}/>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:allDone?"#34d399":textMuted}}>{done}/{p.items.length}</div>
+              </div>
+            );
+          })}
+          {/* My Phase card in grid */}
+          <div onClick={()=>setShowCustomPhase(s=>!s)} style={{cursor:"pointer",borderRadius:12,border:`2px solid ${showCustomPhase?"rgba(245,200,66,0.5)":"rgba(255,255,255,0.12)"}`,background:showCustomPhase?(darkMode?"rgba(245,200,66,0.08)":"rgba(245,200,66,0.05)"):(darkMode?"#1a1a1a":"#fff"),padding:"12px 8px 10px",display:"flex",flexDirection:"column",alignItems:"center",gap:6,transition:"all 0.2s"}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,fontWeight:600,color:"#f5c842",letterSpacing:1}}>PH06</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:9,fontWeight:700,color:showCustomPhase?textMain:textMuted,textAlign:"center",lineHeight:1.2}}>My Phase</div>
+            <SegBar pct={customItems.length>0?Math.round((customItems.filter(c=>completed.has(`custom-${c.id}`)).length/customItems.length)*100):0} color="#f5c842" segments={5} height={5} complete={customItems.length>0&&customItems.every(c=>completed.has(`custom-${c.id}`))} light={!darkMode}/>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted}}>{customItems.filter(c=>completed.has(`custom-${c.id}`)).length}/{customItems.length}</div>
+          </div>
+        </div>
+
+        {/* ══ FILTERS ══ */}
+        <div style={{margin:"0 16px 10px",background:darkMode?"#1a1a1a":"#fff",border:darkMode?"2px solid rgba(255,255,255,0.06)":"2px solid rgba(0,0,0,0.10)",borderRadius:14,padding:"14px 16px"}}>
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:10}}>FILTER BY ROLE</div>
+          <div className="filter-scroll" style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:10}}>
+            {JOB_ROLES.map(role=>{
+              const isAct=activeRole===role.id;
+              return(
+                <button key={role.id} onClick={()=>setActiveRole(role.id)}
+                  style={{padding:"5px 12px",borderRadius:999,fontFamily:"'IBM Plex Mono'",fontSize:8,letterSpacing:1,cursor:"pointer",border:`2px solid ${isAct?"#f5c842":(darkMode?"rgba(255,255,255,0.1)":"rgba(0,0,0,0.15)")}`,background:isAct?"#f5c842":"transparent",color:isAct?"#111":textMuted,fontWeight:isAct?700:400,transition:"all 0.2s"}}>
+                  {role.label}
+                </button>
               );
             })}
+          </div>
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:8}}>FILTER BY TYPE</div>
+          <div className="filter-scroll" style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+            {[
+              {id:"all",label:"All",color:"#f5c842"},
+              {id:"CERT",label:"Cert",color:"#f5c842"},
+              {id:"SKILL",label:"Skill",color:"#34d399"},
+              {id:"TOOL",label:"Tool",color:"#a78bfa"},
+              {id:"FRAMEWORK",label:"Framework",color:"#fb923c"},
+              {id:"TRAINING",label:"Training",color:"#f87171"},
+            ].map(t=>{
+              const isAct=activeTag===t.id;
+              return(
+                <button key={t.id} onClick={()=>setActiveTag(t.id)}
+                  style={{padding:"5px 12px",borderRadius:999,fontFamily:"'IBM Plex Mono'",fontSize:8,letterSpacing:1,cursor:"pointer",border:`2px solid ${isAct?t.color:(darkMode?"rgba(255,255,255,0.1)":"rgba(0,0,0,0.15)")}`,background:isAct?t.color:"transparent",color:isAct?"#111":textMuted,fontWeight:isAct?700:400,transition:"all 0.2s"}}>
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+          {activeRole==="focus"&&priorityItems.size===0&&(
+            <div style={{marginTop:10,padding:"10px 14px",background:"rgba(245,200,66,0.04)",border:"2px solid rgba(245,200,66,0.15)",borderRadius:10}}>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:"#f5c842",letterSpacing:1,marginBottom:2}}>NO PRIORITY ITEMS</div>
+              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:12,color:textMuted}}>Open any skill and tap ⭐ to add to your focus list.</div>
+            </div>
+          )}
+        </div>
+
+        {/* ══ STAT STRIP ══ */}
+        <div className="stat-grid" style={{margin:"0 16px 10px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+          <div style={{background:darkMode?"#1a1a1a":"#fff",border:darkMode?"2px solid rgba(255,255,255,0.06)":"2px solid rgba(0,0,0,0.10)",borderRadius:14,padding:"14px",borderTop:"3px solid #f5c842"}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2}}>WEEKLY</div>
+              <button onClick={()=>setEditingGoal(e=>!e)} style={{background:"none",border:"none",color:"#f5c842",cursor:"pointer",fontFamily:"'IBM Plex Mono'",fontSize:7,letterSpacing:1,padding:0}}>{editingGoal?"SET":"EDIT"}</button>
+            </div>
+            {editingGoal
+              ?<input type="number" min="1" max="20" value={weeklyGoal} onChange={e=>setWeeklyGoal(parseInt(e.target.value)||1)} style={{width:"100%",background:"transparent",border:"none",borderBottom:`2px solid ${darkMode?"rgba(255,255,255,0.1)":"rgba(0,0,0,0.15)"}`,color:textMain,fontFamily:"'IBM Plex Sans'",fontSize:22,fontWeight:700,outline:"none",marginBottom:4}}/>
+              :<div style={{fontFamily:"'IBM Plex Sans'",fontSize:28,fontWeight:700,color:weekDone>=weeklyGoal?"#34d399":"#f5c842",marginBottom:6}}>{weekDone}<span style={{fontSize:12,color:textMuted,fontWeight:400}}>/{weeklyGoal}</span></div>
+            }
+            <SegBar pct={Math.min(100,Math.round((weekDone/weeklyGoal)*100))} color={weekDone>=weeklyGoal?"#34d399":"#f5c842"} segments={weeklyGoal>10?10:weeklyGoal} height={6} complete={weekDone>=weeklyGoal} light={!darkMode}/>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:1,marginTop:4}}>items this week</div>
+          </div>
+          <div style={{background:darkMode?"#1a1a1a":"#fff",border:darkMode?"2px solid rgba(255,255,255,0.06)":"2px solid rgba(0,0,0,0.10)",borderRadius:14,padding:"14px",borderTop:"3px solid #a78bfa"}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:6}}>LAB TIME</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:28,fontWeight:700,color:"#a78bfa",marginBottom:6}}>{totalLabLogged}<span style={{fontSize:12,color:textMuted,fontWeight:400}}>h</span></div>
+            <SegBar pct={Math.min(100,Math.round((totalLabLogged/totalHours)*100))} color="#a78bfa" segments={10} height={6} light={!darkMode}/>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:1,marginTop:4}}>hands-on logged</div>
+          </div>
+          <div style={{background:darkMode?"#1a1a1a":"#fff",border:darkMode?"2px solid rgba(255,255,255,0.06)":"2px solid rgba(0,0,0,0.10)",borderRadius:14,padding:"14px",borderTop:`3px solid ${activeColor}`}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2,marginBottom:6}}>PACE</div>
+            {timeEst
+              ?<><div style={{fontFamily:"'IBM Plex Sans'",fontSize:28,fontWeight:700,color:activeColor,lineHeight:1,marginBottom:4}}>{timeEst.daysLeft}<span style={{fontSize:11,color:textMuted,fontWeight:400}}>d</span></div>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:1}}>{timeEst.ratePerWeek}/wk · {timeEst.target}</div></>
+              :<><div style={{fontFamily:"'IBM Plex Sans'",fontSize:28,fontWeight:700,color:textMuted,marginBottom:4}}>—</div>
+                <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:1}}>complete 3+ items</div></>}
           </div>
         </div>
 
         {/* ══ PHASE CARDS ══ */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "0 16px", animation: "fadeUp 0.5s 0.15s ease both" }}>
-          {PHASES.map((phase) => {
-            const isOpen = openPhase === phase.id;
-            const doneCnt = phase.items.filter((_, i) => completed.has(`${phase.id}-${i}`)).length;
-            const pct = Math.round((doneCnt / phase.items.length) * 100);
-            const allDone = doneCnt === phase.items.length;
-            const phaseXP = phase.items.reduce((s, i) => s + (XP_VALUES[i.tag] || 0), 0);
-            const phaseHours = phase.items.reduce((s, i) => s + i.hours, 0);
-
-            return (
-              <div key={phase.id} style={{
-                borderRadius: 10, overflow: "hidden",
-                border: `1px solid ${isOpen ? phase.color + "55" : borderMuted}`,
-                transition: "border-color 0.3s, box-shadow 0.3s",
-                boxShadow: isOpen ? `0 0 28px ${phase.color}15, inset 0 1px 0 ${phase.color}15` : "none",
-              }}>
+        <div style={{display:"flex",flexDirection:"column",gap:8,padding:"0 16px",animation:"fadeUp 0.5s 0.15s ease both"}}>
+          {PHASES.map((phase,phaseIdx)=>{
+            const isOpen=openPhase===phase.id;
+            const doneCnt=phase.items.filter((_,i)=>completed.has(`${phase.id}-${i}`)).length;
+            const pct=Math.round((doneCnt/phase.items.length)*100);
+            const allDone=doneCnt===phase.items.length;
+            const phaseXP=phase.items.reduce((s,i)=>s+(XP_VALUES[i.tag]||0),0);
+            const phaseHours=phase.items.reduce((s,i)=>s+i.hours,0);
+            const visibleCount=phase.items.filter((item,idx)=>{
+              if(activeRole==="focus")return priorityItems.has(`${phase.id}-${idx}`);
+              if(activeRole==="all")return true;
+              return (activeRoleObj?.filter||((()=>true)))(item);
+            }).length;
+            if(activeRole!=="all"&&visibleCount===0)return null;
+            return(
+              <div key={phase.id} style={{borderRadius:R.lg,overflow:"hidden",border:`2px solid ${allDone?"#34d399":(isOpen?phase.color+"60":"rgba(255,255,255,0.08)")}`,transition:"border-color 0.3s,box-shadow 0.3s",boxShadow:isOpen?`0 0 30px ${phase.color}12,inset 0 1px 0 ${phase.color}12`:"none",animation:`fadeUp 0.5s ${0.2+phaseIdx*0.05}s ease both`}}>
 
                 {/* Header */}
-                <div onClick={() => setOpenPhase(isOpen ? null : phase.id)} style={{
-                  display: "flex", alignItems: "center", gap: 14, padding: "14px 16px",
-                  background: isOpen
-                    ? (darkMode ? phase.dark : `${phase.color}20`)
-                    : (darkMode ? "rgba(255,255,255,0.015)" : "#e8eef8"),
-                  cursor: "pointer", userSelect: "none", transition: "background 0.3s",
-                  borderBottom: isOpen ? `1px solid ${phase.color}18` : "none",
-                }}>
+                <div className="phase-header" onClick={()=>setOpenPhase(isOpen?null:phase.id)}
+                  style={{display:"flex",alignItems:"center",gap:14,padding:"14px 16px",background:isOpen?(darkMode?phase.dark:`${phase.color}18`):(darkMode?"rgba(255,255,255,0.02)":"#eeeeea"),cursor:"pointer",userSelect:"none",transition:"background 0.3s,filter 0.2s",borderBottom:isOpen?`1px solid ${phase.color}15`:"none"}}>
 
-                  <div style={{ position: "relative", flexShrink: 0 }}>
-                    <ProgressRing pct={pct} color={phase.color} size={48} darkMode={darkMode} />
-                    <div style={{
-                      position: "absolute", inset: 0, display: "flex",
-                      alignItems: "center", justifyContent: "center",
-                      fontSize: 17, color: isOpen ? phase.color : "rgba(255,255,255,0.2)",
-                      transition: "color 0.3s",
-                    }}>{phase.icon}</div>
+                  <div style={{position:"relative",flexShrink:0}}>
+                    <ProgressRing pct={pct} color={phase.color} size={48} darkMode={darkMode} complete={allDone}/>
+                    <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",fontSize:17,color:isOpen?phase.color:darkMode?"rgba(255,255,255,0.18)":"rgba(0,0,0,0.25)",transition:"color 0.3s"}}>{phase.icon}</div>
                   </div>
 
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-                      <span style={{
-                        fontFamily: "'Share Tech Mono'", fontSize: 9,
-                        color: isOpen ? phase.color : textMuted, letterSpacing: 3,
-                      }}>{phase.label}</span>
-                      <span style={{
-                        fontFamily: "'Rajdhani'", fontSize: 15, fontWeight: 700, letterSpacing: 1,
-                        color: isOpen ? textMain : (darkMode ? "rgba(255,255,255,0.75)" : "#1a2340"),
-                      }}>{phase.sublabel}</span>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:2}}>
+                      <span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:isOpen?phase.color:textMuted,letterSpacing:3}}>{phase.label}</span>
+                      <span style={{fontFamily:"'IBM Plex Sans'",fontSize:15,fontWeight:700,letterSpacing:0.5,color:allDone?"#34d399":(isOpen?textMain:(darkMode?"rgba(255,255,255,0.75)":"#111111"))}}>{phase.sublabel}</span>
+                      {allDone&&<span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:"#34d399",background:"rgba(52,211,153,0.1)",border:"1px solid rgba(52,211,153,0.25)",borderRadius:999,padding:"2px 7px",letterSpacing:1}}>DONE</span>}
                     </div>
-                    <div style={{
-                      fontFamily: "'Share Tech Mono'", fontSize: 8,
-                      color: textMuted, letterSpacing: 0.5, marginBottom: 5,
-                    }}>{phase.subtitle}</div>
-                    {/* XP + Hours badges */}
-                    <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
-                      <span style={{
-                        fontFamily: "'Share Tech Mono'", fontSize: 7, letterSpacing: 1,
-                        padding: "1px 6px", borderRadius: 2,
-                        background: `${phase.color}${darkMode ? "15" : "25"}`, color: phase.color,
-                        border: `1px solid ${phase.color}30`,
-                      }}>{phaseXP} XP</span>
-                      <span style={{
-                        fontFamily: "'Share Tech Mono'", fontSize: 7, letterSpacing: 1,
-                        padding: "1px 6px", borderRadius: 2,
-                        background: darkMode ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.08)", color: textMuted,
-                        border: `1px solid ${borderMuted}`,
-                      }}>~{phaseHours}h</span>
+                    <div style={{fontFamily:"'IBM Plex Sans'",fontSize:12,fontWeight:400,color:textMuted,letterSpacing:0.3,marginBottom:5,lineHeight:1.4}}>{phase.subtitle}</div>
+                    <div style={{display:"flex",gap:6,marginBottom:6,flexWrap:"wrap"}}>
+                      <span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,letterSpacing:1,padding:"2px 7px",borderRadius:R.sm,background:`${phase.color}${darkMode?"14":"22"}`,color:phase.color,border:`1px solid ${phase.color}28`}}>{phaseXP} XP</span>
+                      <span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,letterSpacing:1,padding:"2px 7px",borderRadius:R.sm,background:darkMode?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.06)",color:textMuted,border:`1px solid ${"rgba(255,255,255,0.08)"}`}}>~{phaseHours}h</span>
+                      {activeRole!=="all"&&<span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,letterSpacing:1,padding:"2px 7px",borderRadius:R.sm,background:"rgba(245,200,66,0.08)",color:"#f5c842",border:"1px solid rgba(245,200,66,0.18)"}}>{visibleCount} matching</span>}
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <div style={{ flex: 1, height: 2, background: darkMode ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.12)", borderRadius: 1, overflow: "hidden" }}>
-                        <div style={{
-                          height: "100%", width: `${pct}%`,
-                          background: allDone ? "#22c55e" : phase.color,
-                          transition: "width 0.4s ease",
-                          boxShadow: pct > 0 ? `0 0 6px ${phase.color}` : "none",
-                        }} />
+                    <div style={{display:"flex",alignItems:"center",gap:8}}>
+                      <div style={{flex:1,height:2,background:darkMode?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.10)",borderRadius:1,overflow:"hidden"}}>
+                        <div style={{height:"100%",width:`${pct}%`,background:allDone?"#34d399":phase.color,transition:"width 0.4s ease"}}/>
                       </div>
-                      <span style={{
-                        fontFamily: "'Share Tech Mono'", fontSize: 8,
-                        color: allDone ? "#22c55e" : isOpen ? phase.color : textMuted,
-                        letterSpacing: 1, flexShrink: 0,
-                      }}>{doneCnt}/{phase.items.length}</span>
+                      <span style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:allDone?"#34d399":isOpen?phase.color:textMuted,letterSpacing:1,flexShrink:0}}>{doneCnt}/{phase.items.length}</span>
                     </div>
                   </div>
 
-                  <div style={{ flexShrink: 0, textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
-                    <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 7, color: darkMode ? textMuted : "rgba(0,0,0,0.6)", letterSpacing: 2 }}>TARGET</div>
-                    <div style={{
-                      fontFamily: "'Rajdhani'", fontSize: 12, fontWeight: 700,
-                      color: isOpen ? phase.color : textMuted,
-                      whiteSpace: "nowrap", transition: "color 0.3s",
-                    }}>{phase.salary}</div>
-                    <div style={{
-                      fontSize: 16, marginTop: 4,
-                      color: isOpen ? phase.color : "rgba(255,255,255,0.15)",
-                      transform: isOpen ? "rotate(180deg)" : "rotate(0)",
-                      transition: "transform 0.25s, color 0.2s",
-                    }}>⌄</div>
+                  <div className="phase-meta" style={{flexShrink:0,textAlign:"right",display:"flex",flexDirection:"column",alignItems:"flex-end",gap:2}}>
+                    <div style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:2}}>TARGET</div>
+                    <div style={{fontFamily:"'IBM Plex Sans'",fontSize:12,fontWeight:700,color:isOpen?phase.color:textMuted,whiteSpace:"nowrap",transition:"color 0.3s"}}>{phase.salary}</div>
+                    <div style={{fontSize:16,marginTop:4,color:isOpen?phase.color:darkMode?"rgba(255,255,255,0.15)":"rgba(0,0,0,0.3)",transform:isOpen?"rotate(180deg)":"rotate(0)",transition:"transform 0.25s,color 0.2s"}}>⌄</div>
                   </div>
                 </div>
 
                 {/* Items */}
-                {isOpen && (
-                  <div style={{ background: darkMode ? "rgba(0,0,0,0.55)" : "#dce8f4", animation: "fadeSlide 0.2s ease" }}>
-                    {phase.items.map((item, idx) => {
-                      const key = `${phase.id}-${idx}`;
-                      const done = completed.has(key);
-                      const diff = DIFFICULTY[item.diff];
-                      return (
-                        <div key={idx} onClick={() => toggle(phase.id, idx)} style={{
-                          display: "flex", alignItems: "center", gap: 12,
-                          padding: "12px 16px",
-                          borderBottom: idx < phase.items.length - 1 ? `1px solid ${borderSub}` : "none",
-                          background: done ? `${phase.color}09` : "transparent",
-                          cursor: "pointer", userSelect: "none", transition: "background 0.15s",
-                        }}>
-
-                          {/* Checkbox */}
-                          <div style={{
-                            width: 20, height: 20, borderRadius: 5, flexShrink: 0,
-                            border: `1.5px solid ${done ? phase.color : borderMuted}`,
-                            background: done ? phase.color : (darkMode ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.06)"),
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            transition: "all 0.2s",
-                            boxShadow: done ? `0 0 10px ${phase.color}55` : "none",
-                          }}>
-                            {done && (
-                              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                                <path d="M1 4L3.5 6.5L9 1" stroke="#000" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                              </svg>
-                            )}
-                          </div>
-
-                          {/* Text */}
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3, flexWrap: "wrap" }}>
-                              <span style={{
-                                fontFamily: "'Rajdhani'", fontSize: 13, fontWeight: 600, letterSpacing: 0.4,
-                                color: done ? textMuted : textMain,
-                                textDecoration: done ? "line-through" : "none",
-                                textDecorationColor: "rgba(255,255,255,0.1)",
-                                transition: "all 0.2s",
-                              }}>{item.title}</span>
-                              <Tag type={item.tag} light={!darkMode} />
+                {isOpen&&(
+                  <div style={{background:darkMode?"rgba(0,0,0,0.52)":"#e8e8e4",animation:"fadeSlide 0.2s ease"}}>
+                    {/* FIX #16: empty state if role filter matches nothing in open phase */}
+                    {visibleCount===0&&activeRole!=="all"&&(
+                      <div style={{padding:"20px 16px",fontFamily:"'IBM Plex Sans'",fontSize:13,color:textMuted,textAlign:"center"}}>
+                        No {JOB_ROLES.find(r=>r.id===activeRole)?.label} skills in this phase.
+                      </div>
+                    )}
+                    {phase.items.map((item,idx)=>{
+                      const key=`${phase.id}-${idx}`;
+                      const done=completed.has(key);
+                      const diff=DIFFICULTY[item.diff];
+                      const hasNote=notes[key]&&notes[key].trim();
+                      const isPrio=priorityItems.has(key);
+                      const completedDateStr=completedDates[key];
+                      const lh=labHours[key]||0;
+                      const isVisible=activeRole==="all"||(activeRole==="focus"?priorityItems.has(key):(activeRoleObj?.filter||(()=>true))(item));
+                      const isExpiring=(()=>{const expiry=CERT_EXPIRY[item.title];if(!expiry||!completedDateStr)return false;const d=new Date(completedDateStr);d.setFullYear(d.getFullYear()+expiry);return(d-new Date())<1000*60*60*24*30*6;})();
+                      return(
+                        <div key={idx} className="phase-item"
+                          style={{borderBottom:idx<phase.items.length-1?`1px solid ${borderSub}`:"none",background:done?`${phase.color}10`:"transparent",opacity:isVisible?1:0.2,borderLeft:done?`3px solid ${phase.color}60`:"3px solid transparent",transition:"opacity 0.2s,background 0.15s",position:"relative"}}>
+                          {/* FIX #14: hover bar */}
+                          <div className="item-hover-bar" style={{position:"absolute",left:0,top:0,bottom:0,width:3,background:phase.color,opacity:0,transition:"opacity 0.15s",borderRadius:"0 2px 2px 0"}}/>
+                          <div style={{display:"flex",alignItems:"center",gap:10,padding:"12px 16px",cursor:"pointer",userSelect:"none"}}
+                            onClick={()=>toggle(phase.id,idx)}>
+                            {/* FIX #3: larger touch targets */}
+                            <div style={{width:22,height:22,borderRadius:R.sm,flexShrink:0,border:`1.5px solid ${done?phase.color:"rgba(255,255,255,0.08)"}`,background:done?phase.color:(darkMode?"rgba(0,0,0,0.3)":"rgba(0,0,0,0.06)"),display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.2s",boxShadow:done?`0 0 12px ${phase.color}50`:"none"}}>
+                              {done&&<svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#000" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                             </div>
-                            <div style={{
-                              fontFamily: "'Share Tech Mono'", fontSize: 9,
-                              color: done ? (darkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.25)") : textMuted,
-                              letterSpacing: 0.3, lineHeight: 1.5, marginBottom: 4,
-                            }}>{item.desc}</div>
-                            {/* Difficulty + Hours + XP */}
-                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                              <Stars count={item.diff} color={diff.color} darkMode={darkMode} />
-                              <span style={{
-                                fontFamily: "'Share Tech Mono'", fontSize: 7,
-                                color: diff.color, letterSpacing: 1, opacity: 0.8,
-                              }}>{diff.label}</span>
-                              <span style={{
-                                fontFamily: "'Share Tech Mono'", fontSize: 7,
-                                color: textMuted, letterSpacing: 1,
-                              }}>~{item.hours}h</span>
-                              <span style={{
-                                fontFamily: "'Share Tech Mono'", fontSize: 7,
-                                color: phase.color, letterSpacing: 1, opacity: 0.8,
-                              }}>+{XP_VALUES[item.tag]} XP</span>
+                            <div style={{flex:1,minWidth:0}}>
+                              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:3,flexWrap:"wrap"}}>
+                                <span style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:600,letterSpacing:0.3,color:done?textMuted:textMain,textDecoration:done?"line-through":"none",textDecorationColor:darkMode?"rgba(255,255,255,0.25)":"rgba(0,0,0,0.3)",transition:"all 0.2s"}}>{item.title}</span>
+                                <Tag type={item.tag} light={!darkMode}/>
+                                {isPrio&&<span style={{fontSize:10}}>⭐</span>}
+                                {isExpiring&&<span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:"#f5c842",letterSpacing:1}}>⚠ RENEW</span>}
+                              </div>
+                              {/* FIX #9: consistent line height */}
+                              <div style={{fontFamily:"'IBM Plex Sans'",fontSize:12,fontWeight:400,color:done?(darkMode?"rgba(255,255,255,0.12)":"rgba(0,0,0,0.25)"):textMuted,lineHeight:1.5,marginBottom:4}}>{item.desc}</div>
+                              <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+                                <Stars count={item.diff} color={diff.color} darkMode={darkMode}/>
+                                <span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:diff.color,letterSpacing:1,opacity:0.85}}>{diff.label}</span>
+                                <span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:textMuted,letterSpacing:1}}>~{item.hours}h</span>
+                                <span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:phase.color,letterSpacing:1,opacity:0.85}}>+{XP_VALUES[item.tag]} XP</span>
+                                {completedDateStr&&<span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:"#34d399",letterSpacing:1}}>{new Date(completedDateStr).toLocaleDateString("en-US",{month:"short",day:"numeric"})}</span>}
+                                {lh>0&&<span style={{fontFamily:"'IBM Plex Mono'",fontSize:7,color:"#a78bfa",letterSpacing:1}}>{lh}h lab</span>}
+                              </div>
+                            </div>
+                            {/* Detail + LOG buttons */}
+                            <div style={{display:"flex",flexDirection:"column",gap:2,flexShrink:0}}>
+                              <button
+                                onClick={e=>{e.stopPropagation();setModalItem({item,phaseId:phase.id,idx,phaseColor:phase.color});}}
+                                style={{background:hasNote?`${phase.color}14`:"rgba(245,200,66,0.06)",border:`1px solid ${hasNote?phase.color+"40":"rgba(245,200,66,0.25)"}`,cursor:"pointer",padding:"3px 7px",borderRadius:R.sm,color:hasNote?phase.color:"#f5c842",transition:"all 0.2s",fontSize:13,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}}
+                                title="Notes & details">
+                                {hasNote?"📝":"···"}
+                              </button>
+                              <button
+                                onClick={e=>{e.stopPropagation();setModalItem({item,phaseId:phase.id,idx,phaseColor:phase.color});}}
+                                style={{background:lh>0?"rgba(245,200,66,0.10)":"rgba(245,200,66,0.06)",border:`1px solid ${lh>0?"rgba(245,200,66,0.4)":"rgba(245,200,66,0.25)"}`,cursor:"pointer",padding:"2px 6px",borderRadius:R.sm,color:"#f5c842",transition:"all 0.2s",fontSize:9,lineHeight:1,minWidth:36,minHeight:28,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'IBM Plex Mono'",letterSpacing:0.5}}
+                                title="Log lab hours">
+                                {lh>0?`${lh}h`:"LOG"}
+                              </button>
+                              <button
+                                onClick={e=>{e.stopPropagation();const alreadyIn=customItems.some(c=>c.ref===`${phase.id}-${idx}`);if(alreadyIn){setCustomItems(prev=>prev.filter(c=>c.ref!==`${phase.id}-${idx}`));}else{setCustomItems(prev=>[...prev,{id:Date.now(),title:item.title,desc:item.desc,tag:item.tag,diff:item.diff,hours:item.hours,ref:`${phase.id}-${idx}`,phaseColor:phase.color}]);}}}
+                                style={{background:"none",border:"none",cursor:"pointer",padding:"4px 8px",borderRadius:R.sm,color:customItems.some(c=>c.ref===`${phase.id}-${idx}`)?"#f5c842":textMuted,transition:"color 0.2s",fontSize:11,lineHeight:1,minWidth:28,minHeight:28,display:"flex",alignItems:"center",justifyContent:"center"}}
+                                title="Add to My Phase">
+                                {customItems.some(c=>c.ref===`${phase.id}-${idx}`)?"★":"☆"}
+                              </button>
                             </div>
                           </div>
-
-                          {/* Index */}
-                          <div style={{
-                            fontFamily: "'Share Tech Mono'", fontSize: 8,
-                            color: done ? phase.color : (darkMode ? textMuted : "rgba(0,0,0,0.35)"),
-                            letterSpacing: 1, flexShrink: 0, transition: "color 0.2s",
-                          }}>{String(idx + 1).padStart(2, "0")}</div>
                         </div>
                       );
                     })}
@@ -849,40 +1330,76 @@
           })}
         </div>
 
+        {/* ══ CUSTOM PHASE EXPANDED ══ */}
+        <div style={{margin:"0 0 8px",padding:"0 16px"}}>
+          <div style={{borderRadius:14,overflow:"hidden",border:`2px solid ${showCustomPhase?"rgba(245,200,66,0.4)":"transparent"}`,transition:"border-color 0.3s",display:showCustomPhase?"block":"none"}}>
+            <div style={{padding:"12px 16px",background:darkMode?"rgba(245,200,66,0.05)":"rgba(245,200,66,0.03)",borderBottom:"1px solid rgba(245,200,66,0.12)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+              <span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:"#f5c842",letterSpacing:2}}>PH06 · MY PHASE · {customItems.length} items</span>
+              <button onClick={()=>setShowCustomPhase(false)} style={{background:"none",border:"none",color:textMuted,cursor:"pointer",fontSize:18,lineHeight:1}}>×</button>
+            </div>
+            {showCustomPhase&&(
+              <div style={{background:darkMode?"rgba(0,0,0,0.4)":"#f0f0ea",animation:"fadeSlide 0.2s ease"}}>
+                {/* Add custom item input */}
+                <div style={{padding:"12px 16px",borderBottom:`1px solid ${darkMode?"rgba(255,255,255,0.05)":"rgba(0,0,0,0.07)"}`,display:"flex",gap:8,alignItems:"center"}}>
+                  <input
+                    value={customInput}
+                    onChange={e=>setCustomInput(e.target.value)}
+                    onKeyDown={e=>{if(e.key==="Enter"&&customInput.trim()){setCustomItems(prev=>[...prev,{id:Date.now(),title:customInput.trim(),desc:"Custom item",tag:"SKILL",diff:2,hours:0,ref:null,phaseColor:"#f5c842"}]);setCustomInput("");}}}
+                    placeholder="Add a custom skill or goal..."
+                    style={{flex:1,background:darkMode?"rgba(255,255,255,0.04)":"rgba(0,0,0,0.04)",border:"2px solid rgba(245,200,66,0.2)",borderRadius:10,padding:"8px 12px",color:textMain,fontFamily:"'IBM Plex Mono'",fontSize:11,outline:"none"}}
+                  />
+                  <button onClick={()=>{if(customInput.trim()){setCustomItems(prev=>[...prev,{id:Date.now(),title:customInput.trim(),desc:"Custom item",tag:"SKILL",diff:2,hours:0,ref:null,phaseColor:"#f5c842"}]);setCustomInput("");}}}
+                    style={{background:"rgba(245,200,66,0.12)",border:"2px solid rgba(245,200,66,0.3)",borderRadius:10,padding:"8px 14px",color:"#f5c842",fontFamily:"'IBM Plex Mono'",fontSize:10,cursor:"pointer",letterSpacing:1,whiteSpace:"nowrap"}}>+ ADD</button>
+                </div>
+                {customItems.length===0&&(
+                  <div style={{padding:"24px 16px",textAlign:"center"}}>
+                    <div style={{fontFamily:"'IBM Plex Sans'",fontSize:13,color:textMuted,marginBottom:4}}>No items yet</div>
+                    <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:textMuted,letterSpacing:1}}>Tap ☆ on any skill above to add it here, or type a custom goal</div>
+                  </div>
+                )}
+                {customItems.map((item,idx)=>{
+                  const ckey=`custom-${item.id}`;
+                  const done=completed.has(ckey);
+                  return(
+                    <div key={item.id} className="phase-item" style={{borderBottom:idx<customItems.length-1?`1px solid ${darkMode?"rgba(255,255,255,0.05)":"rgba(0,0,0,0.07)"}`:"none",background:done?"rgba(245,200,66,0.08)":"transparent",position:"relative",borderLeft:done?"3px solid rgba(245,200,66,0.5)":"3px solid transparent"}}>
+                      <div style={{display:"flex",alignItems:"center",gap:10,padding:"12px 16px",cursor:"pointer",userSelect:"none"}} onClick={()=>{
+                        setCompleted(prev=>{const n=new Set(prev);n.has(ckey)?n.delete(ckey):n.add(ckey);return n;});
+                        if(!completed.has(ckey))setCompletedDates(d=>({...d,[ckey]:new Date().toISOString()}));
+                        else setCompletedDates(d=>{const n={...d};delete n[ckey];return n;});
+                      }}>
+                        <div style={{width:22,height:22,borderRadius:6,flexShrink:0,border:`1.5px solid ${done?"#f5c842":"rgba(255,255,255,0.08)"}`,background:done?"#f5c842":(darkMode?"rgba(0,0,0,0.3)":"rgba(0,0,0,0.06)"),display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.2s"}}>
+                          {done&&<svg width="11" height="9" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#000" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                        </div>
+                        <div style={{flex:1,minWidth:0}}>
+                          <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:600,color:done?textMuted:textMain,textDecoration:done?"line-through":"none",textDecorationColor:darkMode?"rgba(255,255,255,0.25)":"rgba(0,0,0,0.3)"}}>{item.title}</div>
+                          {item.ref&&<div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,marginTop:2,letterSpacing:1}}>from {item.ref.split("-")[0].toUpperCase()}</div>}
+                        </div>
+                        <button onClick={e=>{e.stopPropagation();setCustomItems(prev=>prev.filter(c=>c.id!==item.id));}} style={{background:"none",border:"none",cursor:"pointer",padding:"6px 8px",color:textMuted,fontSize:14,lineHeight:1,minWidth:28,minHeight:28,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}} title="Remove">×</button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* ══ COMPLETION BANNER ══ */}
-        {progress === 100 && (
-          <div style={{
-            margin: "16px 16px 0", padding: "26px 20px", borderRadius: 10,
-            background: "linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(0,212,255,0.06) 100%)",
-            border: "1px solid rgba(168,85,247,0.45)",
-            textAlign: "center", animation: "fadeUp 0.4s ease",
-            boxShadow: "0 0 50px rgba(168,85,247,0.12)",
-          }}>
-            <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 9, color: "#a855f7", letterSpacing: 4, marginBottom: 12 }}>
-              // ROADMAP COMPLETE
-            </div>
-            <div style={{
-              fontFamily: "'Orbitron'", fontSize: 20, fontWeight: 900,
-              color: "#fff", marginBottom: 10, letterSpacing: 1,
-              textShadow: "0 0 20px rgba(168,85,247,0.5)",
-            }}>SENIOR SECURITY ENGINEER</div>
-            <div style={{ fontFamily: "'Rajdhani'", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", letterSpacing: 2 }}>
-              DOD CLEARANCE ELIGIBLE · ARCHITECT TIER
-            </div>
+        {progress===100&&(
+          <div style={{margin:"16px 16px 0",padding:"26px 20px",borderRadius:12,background:"linear-gradient(135deg,rgba(168,85,247,0.12) 0%,rgba(245,200,66,0.06) 100%)",border:"2px solid rgba(168,85,247,0.45)",textAlign:"center",animation:"fadeUp 0.4s ease"}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:"#a78bfa",letterSpacing:4,marginBottom:12}}>// ROADMAP COMPLETE</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:20,fontWeight:900,color:"#fff",marginBottom:10,letterSpacing:1}}>SENIOR SECURITY ENGINEER</div>
+            <div style={{fontFamily:"'IBM Plex Sans'",fontSize:14,fontWeight:600,color:darkMode?"rgba(255,255,255,0.45)":"rgba(0,0,0,0.4)",letterSpacing:2}}>DOD CLEARANCE ELIGIBLE · ARCHITECT TIER</div>
           </div>
         )}
 
-        {/* ══ FOOTER ══ */}
-        <div style={{
-          margin: "30px 16px 0", padding: "16px 0 0",
-          borderTop: darkMode ? "1px solid rgba(0,212,255,0.08)" : "1px solid rgba(0,0,0,0.12)",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-        }}>
-          <div style={{ fontFamily: "'Orbitron'", fontSize: 9, fontWeight: 700, color: "#00d4ff", letterSpacing: 2, opacity: 0.75 }}>
-            SECURITY ENGINEER PATH
-          </div>
-          <div style={{ fontFamily: "'Share Tech Mono'", fontSize: 8, color: textMuted, letterSpacing: 2 }}>
-            {new Date().getFullYear()}
+        {/* ══ FOOTER — FIX #20: summary stats ══ */}
+        <div style={{margin:"24px 16px 0",padding:"16px 0 20px",borderTop:darkMode?"2px solid rgba(245,200,66,0.08)":"2px solid rgba(0,0,0,0.08)",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}}>
+          <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:"#f5c842",letterSpacing:3,opacity:0.7}}>SECURITY ENGINEER PATH</div>
+          <div style={{display:"flex",gap:12}}>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:1}}>{doneCount}/{totalItems} skills</div>
+            <div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:textMuted,letterSpacing:1}}>{totalXP.toLocaleString()} XP</div>
+            {totalLabLogged>0&&<div style={{fontFamily:"'IBM Plex Mono'",fontSize:8,color:"#a78bfa",letterSpacing:1}}>{totalLabLogged}h lab</div>}
           </div>
         </div>
 
@@ -890,17 +1407,17 @@
     );
   }
 
-  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('SW registered:', reg.scope))
-          .catch(err => console.log('SW error:', err));
-      });
-    }
-  </script>
+<script>
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('sw.js')
+        .then(reg=>console.log('SW:',reg.scope))
+        .catch(err=>console.log('SW err:',err));
+    });
+  }
+</script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 {
   "name": "Cyber Checkmark",
   "short_name": "CyberCheckmark",
-  "description": "Gamified cybersecurity career roadmap — 50 certs, tools, and skills across 4 phases",
+  "description": "A self-paced cybersecurity career roadmap tracker — 100 skills, certs, tools, and frameworks across 5 phases.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#080c14",
-  "theme_color": "#00d4ff",
+  "background_color": "#111111",
+  "theme_color": "#f5c842",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -20,5 +20,8 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["education", "productivity", "utilities"],
+  "screenshots": [],
+  "prefer_related_applications": false
 }
